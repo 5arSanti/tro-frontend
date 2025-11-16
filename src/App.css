@@ -68,6 +68,8 @@ body {
 }
 
 .app-main {
+  width: 100%;
+  height: 100%;
   flex: 1;
   padding: 0;
 }
@@ -75,12 +77,12 @@ body {
 /* Video Detection Container */
 .video-detection-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
 /* Monitoring View */
 .monitoring-view {
-  height: calc(100vh - 120px);
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: #f5f7fa;
