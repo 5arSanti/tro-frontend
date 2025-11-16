@@ -21,7 +21,7 @@ export function VideoDetection() {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/videos`);
+        const response = await fetch(`${API_BASE_URL}/videos/list`);
         if (!response.ok) {
           throw new Error("Failed to fetch videos");
         }
