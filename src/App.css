@@ -805,6 +805,3 @@ body {
   font-size: 0.875rem;
   line-height: 1.4;
 }
-
-/* Import Dashboard Styles */
-@import url('./styles/dashboard.css');
