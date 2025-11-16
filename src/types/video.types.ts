@@ -8,11 +8,26 @@ export interface VideoListResponse {
   videos: VideoInfo[];
 }
 
-export interface DetectionStats {
-  totalDetections: number;
-  lastUpdate: string;
-  status: "active" | "idle" | "error";
+export interface DetectionMetricsMessage {
+  videoId: string;
+  timestamp: string;
+  totalObjects: number;
+  personCount: number;
+  labelCounts: Record<string, number>;
 }
 
-export type ViewMode = "dashboard" | "monitoring" | "camera";
+export interface DetectionOverview {
+  status: "idle" | "connecting" | "active" | "error";
+  lastUpdate: string | null;
+  personCount: number;
+  totalObjects: number;
+}
 
+export type DetectionConnectionState =
+  | "idle"
+  | "connecting"
+  | "open"
+  | "closed"
+  | "error";
+
+export type ViewMode = "dashboard" | "monitoring" | "camera";

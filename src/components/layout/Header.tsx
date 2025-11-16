@@ -1,22 +1,37 @@
-import type { DetectionStats } from "../../types/video.types";
+import type { DetectionOverview } from "../../types/video.types";
 
 interface HeaderProps {
-  stats: DetectionStats;
+  overview: DetectionOverview;
   totalCameras: number;
   activeCameras: number;
 }
 
-export function Header({ stats, totalCameras, activeCameras }: HeaderProps) {
+const STATUS_LABEL: Record<DetectionOverview["status"], string> = {
+  idle: "En espera",
+  connecting: "Conectando",
+  active: "Activo",
+  error: "Error",
+};
+
+export function Header({ overview, totalCameras, activeCameras }: HeaderProps) {
   return (
     <div className="control-header">
       <div className="header-info">
-        <div className="status-badge">
-          <span className={`status-indicator ${stats.status}`}></span>
-          <span>Sistema {stats.status === "active" ? "Activo" : "Inactivo"}</span>
+        <div className={`status-badge ${overview.status}`}>
+          <span className={`status-indicator ${overview.status}`}></span>
+          <span>Sistema {STATUS_LABEL[overview.status]}</span>
         </div>
         <div className="stat-item">
           <span className="stat-label">Última actualización</span>
-          <span className="stat-value">{stats.lastUpdate}</span>
+          <span className="stat-value">{overview.lastUpdate ?? "--"}</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-label">Personas detectadas</span>
+          <span className="stat-value prominent">{overview.personCount}</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-label">Objetos totales</span>
+          <span className="stat-value prominent">{overview.totalObjects}</span>
         </div>
         <div className="stat-item">
           <span className="stat-label">Cámaras activas</span>
@@ -28,4 +43,3 @@ export function Header({ stats, totalCameras, activeCameras }: HeaderProps) {
     </div>
   );
 }
-

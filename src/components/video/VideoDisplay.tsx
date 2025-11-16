@@ -1,22 +1,21 @@
-import type { VideoInfo, DetectionStats } from "../../types/video.types";
+import type { VideoInfo } from "../../types/video.types";
 import { VideoStream } from "./VideoStream";
 
 interface VideoDisplayProps {
   selectedVideo: VideoInfo | null;
-  onStatsUpdate: (stats: DetectionStats) => void;
 }
 
-export function VideoDisplay({
-  selectedVideo,
-  onStatsUpdate,
-}: VideoDisplayProps) {
+export function VideoDisplay({ selectedVideo }: VideoDisplayProps) {
   if (!selectedVideo) {
     return (
       <div className="no-selection">
         <div className="no-selection-content">
           <div className="no-selection-icon">🎥</div>
           <h3>Sin Cámara Seleccionada</h3>
-          <p>Seleccione una cámara del panel izquierdo para ver el stream en tiempo real</p>
+          <p>
+            Seleccione una cámara del panel izquierdo para ver el stream en
+            tiempo real
+          </p>
         </div>
       </div>
     );
@@ -36,9 +35,8 @@ export function VideoDisplay({
         </div>
       </div>
       <div className="video-display">
-        <VideoStream video={selectedVideo} onStatsUpdate={onStatsUpdate} />
+        <VideoStream video={selectedVideo} />
       </div>
     </>
   );
 }
-

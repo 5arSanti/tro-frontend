@@ -1,28 +1,18 @@
 import { useEffect, useState } from "react";
-import type { VideoInfo, DetectionStats } from "../../types/video.types";
-import { API_BASE_URL, STATS_UPDATE_INTERVAL } from "../../utils/constants";
+import type { VideoInfo } from "../../types/video.types";
+import { API_BASE_URL } from "../../utils/constants";
 
 interface VideoStreamProps {
   video: VideoInfo;
-  onStatsUpdate: (stats: DetectionStats) => void;
 }
 
-export function VideoStream({ video, onStatsUpdate }: VideoStreamProps) {
+export function VideoStream({ video }: VideoStreamProps) {
   const streamUrl = `${API_BASE_URL}/videos/${video.id}/stream?confidence_threshold=0.5`;
   const [streamError, setStreamError] = useState(false);
 
   useEffect(() => {
     setStreamError(false);
-    const interval = setInterval(() => {
-      onStatsUpdate({
-        totalDetections: Math.floor(Math.random() * 50),
-        lastUpdate: new Date().toLocaleTimeString(),
-        status: "active",
-      });
-    }, STATS_UPDATE_INTERVAL);
-
-    return () => clearInterval(interval);
-  }, [video.id, onStatsUpdate]);
+  }, [video.id]);
 
   return (
     <div className="stream-container">
@@ -51,4 +41,3 @@ export function VideoStream({ video, onStatsUpdate }: VideoStreamProps) {
     </div>
   );
 }
-
