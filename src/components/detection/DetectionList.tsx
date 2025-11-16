@@ -20,24 +20,37 @@ export function DetectionList({ events }: DetectionListProps) {
 
   return (
     <ul className="detection-events">
-      {events.map((event, index) => (
-        <li key={`${event.timestamp}-${index}`} className="detection-item">
-          <div className="detection-time">{formatTime(event.timestamp)}</div>
-          <div className="detection-meta">
-            <span className="meta-highlight">{event.personCount} personas</span>
-            <span>{event.totalObjects} objetos</span>
-          </div>
-          {Object.keys(event.labelCounts).length > 0 && (
-            <div className="detection-labels">
-              {Object.entries(event.labelCounts).map(([label, count]) => (
-                <span key={label} className="label-chip">
-                  {label}: {count}
-                </span>
-              ))}
+      {events.map((event, index) => {
+        const personCount = event.personCount ?? event.person_count ?? 0;
+        const totalObjects = event.totalObjects ?? event.total_objects ?? 0;
+        const labelCounts = event.labelCounts ?? event.label_counts ?? {};
+
+        // Safely check if labelCounts is valid and has keys
+        const hasLabels =
+          labelCounts &&
+          typeof labelCounts === "object" &&
+          !Array.isArray(labelCounts) &&
+          Object.keys(labelCounts).length > 0;
+
+        return (
+          <li key={`${event.timestamp}-${index}`} className="detection-item">
+            <div className="detection-time">{formatTime(event.timestamp)}</div>
+            <div className="detection-meta">
+              <span className="meta-highlight">{personCount} personas</span>
+              <span>{totalObjects} objetos</span>
             </div>
-          )}
-        </li>
-      ))}
+            {hasLabels && (
+              <div className="detection-labels">
+                {Object.entries(labelCounts).map(([label, count]) => (
+                  <span key={label} className="label-chip">
+                    {label}: {count}
+                  </span>
+                ))}
+              </div>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }

@@ -9,11 +9,15 @@ export interface VideoListResponse {
 }
 
 export interface DetectionMetricsMessage {
-  videoId: string;
+  video_id?: string;
+  videoId?: string; // Support both formats
   timestamp: string;
-  totalObjects: number;
-  personCount: number;
-  labelCounts: Record<string, number>;
+  total_objects?: number;
+  totalObjects?: number; // Support both formats
+  person_count?: number;
+  personCount?: number; // Support both formats
+  label_counts?: Record<string, number> | null;
+  labelCounts?: Record<string, number> | null; // Support both formats
 }
 
 export interface DetectionOverview {

@@ -67,8 +67,16 @@ export function DetectionPanel({
 
     websocket.onmessage = (event: MessageEvent<string>) => {
       try {
-        const payload: DetectionMetricsMessage = JSON.parse(event.data);
-        console.log(payload);
+        const rawPayload = JSON.parse(event.data);
+        
+        // Normalize payload: convert snake_case to camelCase and ensure all fields exist
+        const payload: DetectionMetricsMessage = {
+          videoId: rawPayload.video_id || rawPayload.videoId || "",
+          timestamp: rawPayload.timestamp || new Date().toISOString(),
+          totalObjects: rawPayload.total_objects ?? rawPayload.totalObjects ?? 0,
+          personCount: rawPayload.person_count ?? rawPayload.personCount ?? 0,
+          labelCounts: rawPayload.label_counts || rawPayload.labelCounts || {},
+        };
         
         setLatestMetrics(payload);
         setEvents((prev) => [payload, ...prev].slice(0, MAX_HISTORY));
@@ -76,6 +84,7 @@ export function DetectionPanel({
         updateConnectionState("open");
       } catch (error) {
         console.error("Unable to parse detection metrics", error);
+        updateConnectionState("error");
       }
     };
 
@@ -102,8 +111,12 @@ export function DetectionPanel({
   return (
     <div className="detections-container">
       <DetectionStats
-        personCount={latestMetrics?.personCount ?? 0}
-        totalObjects={latestMetrics?.totalObjects ?? 0}
+        personCount={
+          latestMetrics?.personCount ?? latestMetrics?.person_count ?? 0
+        }
+        totalObjects={
+          latestMetrics?.totalObjects ?? latestMetrics?.total_objects ?? 0
+        }
         lastUpdate={latestMetrics?.timestamp ?? null}
       />
       <div className="detections-list">

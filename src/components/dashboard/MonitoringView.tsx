@@ -39,8 +39,8 @@ export function MonitoringView({ videos }: MonitoringViewProps) {
         minute: "2-digit",
         second: "2-digit",
       }),
-      personCount: metrics.personCount,
-      totalObjects: metrics.totalObjects,
+      personCount: metrics.personCount ?? metrics.person_count ?? 0,
+      totalObjects: metrics.totalObjects ?? metrics.total_objects ?? 0,
     });
   };
 
