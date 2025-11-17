@@ -10,11 +10,13 @@ export function VideoDisplay({ selectedVideo }: VideoDisplayProps) {
     return (
       <div className="no-selection">
         <div className="no-selection-content">
-          <div className="no-selection-icon">🎥</div>
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.3">
+            <path d="M23 7l-7 5 7 5V7z"/>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
           <h3>Sin Cámara Seleccionada</h3>
           <p>
-            Seleccione una cámara del panel izquierdo para ver el stream en
-            tiempo real
+            Seleccione una cámara del panel izquierdo para iniciar la visualización en tiempo real
           </p>
         </div>
       </div>
@@ -25,13 +27,8 @@ export function VideoDisplay({ selectedVideo }: VideoDisplayProps) {
     <>
       <div className="view-header">
         <h2>{selectedVideo.name}</h2>
-        <div className="view-controls">
-          <button className="control-btn">
-            <span>📊</span> Reportes
-          </button>
-          <button className="control-btn">
-            <span>⚙️</span> Configurar
-          </button>
+        <div className="view-info">
+          <span className="camera-id-badge">ID: {selectedVideo.id}</span>
         </div>
       </div>
       <div className="video-display">

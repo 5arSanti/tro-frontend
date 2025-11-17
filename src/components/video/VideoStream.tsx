@@ -28,15 +28,22 @@ export function VideoStream({ video }: VideoStreamProps) {
         />
       ) : (
         <div className="stream-error">
-          <div className="error-icon">⚠️</div>
-          <p>Error al cargar el stream</p>
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p>Error al cargar el stream de video</p>
           <button className="retry-btn" onClick={() => setStreamError(false)}>
-            Reintentar
+            Reintentar Conexión
           </button>
         </div>
       )}
       <div className="stream-overlay">
-        <div className="overlay-badge">🔴 EN VIVO</div>
+        <div className="overlay-badge">
+          <span className="live-indicator"></span>
+          EN VIVO
+        </div>
       </div>
     </div>
   );

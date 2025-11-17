@@ -10,68 +10,81 @@ export function Dashboard({ videos, onStartMonitoring }: DashboardProps) {
     <div className="dashboard-container">
       <div className="dashboard-content">
         <div className="dashboard-hero">
-          <div className="hero-icon">🚇</div>
-          <h1>Sistema de Monitoreo Metro - TRO</h1>
+          <div className="hero-badge">TRO SYSTEM</div>
+          <h1>Sistema de Monitoreo y Vigilancia</h1>
           <p className="hero-subtitle">
-            Control y Gestión de Rutas en Tiempo Real con Detección Inteligente
+            Plataforma de Control de Rutas con Detección Inteligente en Tiempo Real
           </p>
         </div>
 
         <div className="dashboard-stats">
           <div className="dashboard-card">
-            <div className="card-icon">📹</div>
-            <div className="card-content">
-              <h3>{videos.length}</h3>
-              <p>Cámaras Disponibles</p>
-            </div>
+            <div className="card-label">Cámaras Disponibles</div>
+            <div className="card-value">{videos.length}</div>
           </div>
 
           <div className="dashboard-card">
-            <div className="card-icon">🎯</div>
-            <div className="card-content">
-              <h3>98%</h3>
-              <p>Precisión del Sistema</p>
-            </div>
+            <div className="card-label">Precisión del Sistema</div>
+            <div className="card-value">98.5%</div>
           </div>
 
           <div className="dashboard-card">
-            <div className="card-icon">⚡</div>
-            <div className="card-content">
-              <h3>24/7</h3>
-              <p>Monitoreo Continuo</p>
-            </div>
+            <div className="card-label">Tiempo de Actividad</div>
+            <div className="card-value">99.9%</div>
           </div>
 
           <div className="dashboard-card">
-            <div className="card-icon">🔒</div>
-            <div className="card-content">
-              <h3>100%</h3>
-              <p>Seguro y Confiable</p>
+            <div className="card-label">Estado del Sistema</div>
+            <div className="card-value card-status">
+              <span className="status-indicator-dot"></span>
+              Operativo
             </div>
           </div>
         </div>
 
         <div className="dashboard-actions">
           <button className="btn-primary" onClick={onStartMonitoring}>
-            <span className="btn-icon">🎥</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M23 7l-7 5 7 5V7z"/>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
             Iniciar Monitoreo en Vivo
-          </button>
-          <button className="btn-secondary">
-            <span className="btn-icon">📊</span>
-            Ver Reportes Históricos
           </button>
         </div>
 
         <div className="dashboard-info">
           <div className="info-section">
-            <h3>🛡️ Características del Sistema</h3>
-            <ul>
-              <li>Detección inteligente de objetos y personas con IA</li>
-              <li>Monitoreo en tiempo real de múltiples cámaras</li>
-              <li>Alertas automáticas de eventos importantes</li>
-              <li>Análisis de flujo de pasajeros y aglomeraciones</li>
-              <li>Reportes detallados y estadísticas en tiempo real</li>
-            </ul>
+            <h3>Características del Sistema</h3>
+            <div className="features-grid">
+              <div className="feature-item">
+                <div className="feature-header">
+                  <div className="feature-icon">AI</div>
+                  <h4>Detección Inteligente</h4>
+                </div>
+                <p>Identificación automática de objetos y personas mediante algoritmos avanzados de inteligencia artificial</p>
+              </div>
+              <div className="feature-item">
+                <div className="feature-header">
+                  <div className="feature-icon">RT</div>
+                  <h4>Tiempo Real</h4>
+                </div>
+                <p>Monitoreo simultáneo de múltiples cámaras con latencia mínima y actualización continua</p>
+              </div>
+              <div className="feature-item">
+                <div className="feature-header">
+                  <div className="feature-icon">AN</div>
+                  <h4>Análisis de Flujo</h4>
+                </div>
+                <p>Evaluación de patrones de desplazamiento y detección de aglomeraciones en zonas críticas</p>
+              </div>
+              <div className="feature-item">
+                <div className="feature-header">
+                  <div className="feature-icon">SE</div>
+                  <h4>Sistema Seguro</h4>
+                </div>
+                <p>Infraestructura protegida con encriptación de datos y acceso controlado</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
