@@ -4,12 +4,14 @@ import "./App.css";
 import "./styles/dashboard.css";
 import "./styles/navbar.css";
 import "./styles/cameras.css";
+import "./styles/routing.css";
 import type { VideoInfo, VideoListResponse } from "./types/video.types";
 import { API_BASE_URL } from "./utils/constants";
 import { Navbar } from "./components/layout/Navbar";
 import { HomePage } from "./pages/HomePage";
 import { MonitoringPage } from "./pages/MonitoringPage";
 import { CamerasPage } from "./pages/CamerasPage";
+import { RoutingPage } from "./pages/RoutingPage";
 import { Loading } from "./components/common/Loading";
 import { ErrorDisplay } from "./components/common/ErrorDisplay";
 
@@ -49,6 +51,7 @@ function App() {
             <Route path="/" element={<HomePage videos={videos} />} />
             <Route path="/monitoring" element={<MonitoringPage videos={videos} />} />
             <Route path="/cameras" element={<CamerasPage videos={videos} />} />
+            <Route path="/routing" element={<RoutingPage />} />
           </Routes>
         </main>
       </div>
