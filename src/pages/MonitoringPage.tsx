@@ -105,41 +105,50 @@ export function MonitoringPage({ videos }: MonitoringPageProps) {
         {/* Main Content Area */}
         <main className="monitoring-main">
           {selectedVideo ? (
-            <>
-              {/* Top Section - Detection Stats */}
-              <section className="detection-overview-section">
-                <div className="detection-overview-header">
-                  <h3>DETECCIONES EN TIEMPO REAL</h3>
-                  <div className="camera-badge">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="monitoring-content-wrapper">
+              {/* Top Bar - Camera Info and Live Stats */}
+              <section className="monitoring-top-bar">
+                <div className="top-bar-content">
+                  <div className="camera-info">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
                       <polyline points="17 2 12 7 7 2"/>
                     </svg>
-                    {selectedVideo.name}
+                    <h3>{selectedVideo.name}</h3>
+                    <span className="live-badge">
+                      <span className="live-dot"></span>
+                      EN VIVO
+                    </span>
                   </div>
-                </div>
-                
-                <div className="detection-overview-content">
-                  <DetectionPanel
-                    video={selectedVideo}
-                    onMetricsUpdate={handleMetricsUpdate}
-                    onConnectionChange={handleConnectionChange}
-                  />
                   
-                  <div className="station-quick-info">
-                    <StationMonitoringPanel 
-                      cameraId={selectedVideo.id}
-                      latestMetrics={latestMetrics}
+                  <div className="detection-quick-stats">
+                    <DetectionPanel
+                      video={selectedVideo}
+                      onMetricsUpdate={handleMetricsUpdate}
+                      onConnectionChange={handleConnectionChange}
                     />
                   </div>
                 </div>
               </section>
 
-              {/* Bottom Section - Video Display */}
-              <section className="video-display-section">
+              {/* Middle Section - Video Display */}
+              <section className="video-main-section">
                 <VideoDisplay selectedVideo={selectedVideo} />
               </section>
-            </>
+
+              {/* Bottom Section - Station Information */}
+              <section className="station-info-section">
+                <div className="station-info-header">
+                  <h3>INFORMACIÓN DE LA ESTACIÓN Y OPTIMIZACIÓN</h3>
+                </div>
+                <div className="station-info-content">
+                  <StationMonitoringPanel 
+                    cameraId={selectedVideo.id}
+                    latestMetrics={latestMetrics}
+                  />
+                </div>
+              </section>
+            </div>
           ) : (
             <div className="no-camera-selected-main">
               <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">

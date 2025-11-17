@@ -39,168 +39,180 @@
   flex-direction: column;
   background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
   overflow: hidden;
+  position: relative;
 }
 
-/* Detection Overview Section - Top */
-.detection-overview-section {
-  background: linear-gradient(135deg, #1a1f2e 0%, #252b3b 100%);
-  border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+/* Monitoring Content Wrapper with Scroll */
+.monitoring-content-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  max-height: 45vh;
-  min-height: 280px;
 }
 
-.detection-overview-header {
+.monitoring-content-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.monitoring-content-wrapper::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.monitoring-content-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(0, 168, 255, 0.4);
+  border-radius: 5px;
+}
+
+.monitoring-content-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 168, 255, 0.6);
+}
+
+/* Top Bar - Camera Info and Detection Stats */
+.monitoring-top-bar {
+  background: linear-gradient(135deg, #1a1f2e 0%, #252b3b 100%);
+  border-bottom: 2px solid rgba(0, 168, 255, 0.3);
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.top-bar-content {
+  display: flex;
+  align-items: stretch;
+}
+
+.camera-info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1rem;
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(0, 168, 255, 0.15);
+  border-right: 1px solid rgba(0, 168, 255, 0.2);
 }
 
-.detection-overview-header h3 {
-  color: #b8c5db;
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+.camera-info svg {
+  color: var(--metro-accent);
+  flex-shrink: 0;
+}
+
+.camera-info h3 {
+  color: #ffffff;
+  font-size: 1.125rem;
+  font-weight: 600;
   margin: 0;
+  letter-spacing: 0.3px;
 }
 
-.camera-badge {
+.live-badge {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: rgba(0, 168, 255, 0.15);
-  border: 1px solid rgba(0, 168, 255, 0.3);
-  border-radius: 2px;
-  color: var(--metro-accent);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.detection-overview-content {
-  display: grid;
-  grid-template-columns: 400px 1fr;
-  gap: 0;
-  flex: 1;
-  overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Detection Panel - Compact */
-.detection-overview-content > div:first-child {
-  border-right: 1px solid rgba(0, 168, 255, 0.15);
-  background: rgba(0, 0, 0, 0.15);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.detection-overview-content > div:first-child::-webkit-scrollbar {
-  width: 6px;
-}
-
-.detection-overview-content > div:first-child::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.detection-overview-content > div:first-child::-webkit-scrollbar-thumb {
-  background: rgba(0, 168, 255, 0.3);
-  border-radius: 3px;
-}
-
-/* Station Quick Info - Right Side */
-.station-quick-info {
-  background: rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-}
-
-.station-quick-info::-webkit-scrollbar {
-  width: 6px;
-}
-
-.station-quick-info::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.station-quick-info::-webkit-scrollbar-thumb {
-  background: rgba(0, 168, 255, 0.3);
-  border-radius: 3px;
-}
-
-/* Compact Station Monitoring Panel */
-.station-quick-info .monitoring-station-header {
-  padding: 1rem;
-  border-bottom: 1px solid rgba(0, 168, 255, 0.15);
-}
-
-.station-quick-info .station-icon-large {
-  width: 48px;
-  height: 48px;
-}
-
-.station-quick-info .station-header-info h3 {
-  font-size: 1.125rem;
-}
-
-.station-quick-info .monitoring-section {
-  padding: 1rem;
-}
-
-.station-quick-info .section-title {
+  background: rgba(255, 68, 68, 0.15);
+  border: 1px solid rgba(255, 68, 68, 0.4);
+  border-radius: 20px;
+  color: #ff4444;
   font-size: 0.7rem;
-  margin-bottom: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-left: auto;
 }
 
-.station-quick-info .metric-card {
-  padding: 1rem;
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ff4444;
+  border-radius: 50%;
+  animation: pulse-live 2s infinite;
 }
 
-.station-quick-info .metric-value.large {
-  font-size: 2.25rem;
+@keyframes pulse-live {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(255, 68, 68, 0.8);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 4px rgba(255, 68, 68, 0.4);
+  }
 }
 
-.station-quick-info .dispatch-train-info {
-  padding: 1rem;
-}
-
-.station-quick-info .dispatch-metrics-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-}
-
-.station-quick-info .dispatch-metric {
-  padding: 0.75rem;
-}
-
-.station-quick-info .dispatch-metric-value {
-  font-size: 1.25rem;
-}
-
-.station-quick-info .train-item {
-  padding: 0.75rem;
-}
-
-.station-quick-info .available-trains-list {
-  gap: 0.5rem;
-}
-
-/* Video Display Section - Bottom */
-.video-display-section {
+.detection-quick-stats {
   flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Detection Panel in Top Bar - Horizontal Layout */
+.detection-quick-stats .detection-stats-container,
+.detection-quick-stats .detection-panel {
+  width: 100%;
+  background: transparent;
+  border: none;
+}
+
+.detection-quick-stats .detection-stats {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  justify-content: space-around;
+}
+
+.detection-quick-stats .stat-card {
+  flex: 1;
+  padding: 5px;
+  background: rgba(0, 168, 255, 0.08);
+  border: 1px solid rgba(0, 168, 255, 0.2);
+  border-radius: 4px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.detection-quick-stats .stat-card:hover {
+  background: rgba(0, 168, 255, 0.15);
+  border-color: rgba(0, 168, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.detection-quick-stats .stat-label {
+  display: block;
+  color: #8892a6;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.detection-quick-stats .stat-value {
+  display: block;
+  color: #ffffff;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Hide detection list in top bar */
+.detection-quick-stats .detection-list-container,
+.detection-quick-stats .detection-list {
+  display: none;
+}
+
+/* Video Main Section */
+.video-main-section {
+  flex-shrink: 0;
+  min-height: 500px;
+  height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(10, 15, 25, 0.8) 100%);
-  overflow: hidden;
   padding: 1.5rem;
   position: relative;
 }
 
-.video-display-section::before {
+.video-main-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -210,47 +222,83 @@
   background: linear-gradient(90deg, transparent, rgba(0, 168, 255, 0.3), transparent);
 }
 
-.video-display-section .video-display {
+.video-main-section .video-display {
   width: 100%;
   height: 100%;
-  max-height: none;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 168, 255, 0.15);
+  max-width: 100%;
+  max-height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 168, 255, 0.2);
   border-radius: 4px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-.video-display-section .video-header {
-  padding: 0.75rem 1rem;
-  background: rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 168, 255, 0.15);
+.video-main-section .video-header {
+  display: none; /* Hide header since we have top bar */
 }
 
-.video-display-section .video-container {
+.video-main-section .video-container {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #000000;
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.video-display-section .video-stream {
+.video-main-section .video-stream {
   max-height: 100%;
   max-width: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
 }
 
-.video-display-section .no-video-selected {
+.video-main-section .no-video-selected {
   max-height: 100%;
+  max-width: 100%;
   width: 100%;
+  height: 100%;
   object-fit: contain;
+}
+
+/* Station Info Section - Bottom */
+.station-info-section {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #1a1f2e 0%, #252b3b 100%);
+  border-top: 1px solid rgba(0, 168, 255, 0.2);
+}
+
+.station-info-header {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 168, 255, 0.15);
+}
+
+.station-info-header h3 {
+  color: #b8c5db;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin: 0;
+}
+
+.station-info-content {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.station-info-content .station-monitoring-panel {
+  background: transparent;
+}
+
+.station-info-content .monitoring-station-header {
+  background: rgba(0, 0, 0, 0.15);
 }
 
 /* No Camera Selected State */
@@ -419,38 +467,41 @@
 
 /* Responsive */
 @media (max-width: 1400px) {
-  .detection-overview-content {
-    grid-template-columns: 350px 1fr;
+  
+  .detection-quick-stats .detection-stats {
+    gap: 1rem;
   }
   
-  .station-quick-info .dispatch-metrics-grid {
+  .station-info-content .dispatch-metrics-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 1200px) {
   .monitoring-layout {
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 260px 1fr;
   }
   
-  .detection-overview-content {
-    grid-template-columns: 320px 1fr;
+  .top-bar-content {
+    flex-direction: column;
+  }
+  
+  .camera-info {
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+    min-width: auto;
   }
 }
 
 @media (max-width: 1024px) {
-  .detection-overview-section {
-    max-height: 50vh;
+  .video-main-section {
+    min-height: 400px;
+    height: 50vh;
   }
   
-  .detection-overview-content {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-  }
-  
-  .detection-overview-content > div:first-child {
-    border-right: none;
-    border-bottom: 1px solid rgba(0, 168, 255, 0.15);
+  .detection-quick-stats .detection-stats {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 }
 
@@ -466,14 +517,19 @@
     max-height: 200px;
   }
   
-  .detection-overview-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .camera-info {
+    flex-wrap: wrap;
     gap: 0.75rem;
   }
   
-  .detection-overview-content .detection-stats {
-    grid-template-columns: repeat(2, 1fr);
+  .live-badge {
+    margin-left: 0;
+  }
+  
+  .video-main-section {
+    min-height: 300px;
+    height: 40vh;
+    padding: 1rem;
   }
 }
 
@@ -489,11 +545,28 @@
   }
 }
 
-.detection-overview-section {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.monitoring-content-wrapper {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.monitoring-top-bar {
   animation: slideInFromTop 0.3s ease-out;
 }
 
-.video-display-section {
-  animation: slideInFromTop 0.4s ease-out;
+.video-main-section {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.station-info-section {
+  animation: fadeIn 0.5s ease-out;
 }
 
