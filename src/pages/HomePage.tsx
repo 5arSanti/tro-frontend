@@ -6,12 +6,25 @@ interface HomePageProps {
   videos: VideoInfo[];
 }
 
+const ENVIRONMENT_LABELS: Record<string, string> = {
+  development: "Desarrollo",
+  production: "Producción",
+  staging: "Pruebas",
+  testing: "Testing",
+  local: "Local",
+  "---": "---",
+};
+
 export function HomePage({ videos }: HomePageProps) {
   const navigate = useNavigate();
   const systemHealth = useHealthCheck();
 
   const handleStartMonitoring = () => {
     navigate("/monitoring");
+  };
+
+  const getEnvironmentLabel = (env: string): string => {
+    return ENVIRONMENT_LABELS[env.toLowerCase()] || env;
   };
 
   return (
@@ -38,7 +51,7 @@ export function HomePage({ videos }: HomePageProps) {
 
           <div className="dashboard-card">
             <div className="card-label">Entorno</div>
-            <div className="card-value">{systemHealth.environment}</div>
+            <div className="card-value">{getEnvironmentLabel(systemHealth.environment)}</div>
           </div>
 
           <div className="dashboard-card">
