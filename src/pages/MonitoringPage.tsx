@@ -9,6 +9,8 @@ import { Header } from "../components/layout/Header";
 import { CameraPanel } from "../components/camera/CameraPanel";
 import { VideoDisplay } from "../components/video/VideoDisplay";
 import { DetectionPanel } from "../components/detection/DetectionPanel";
+import { StationMonitoringPanel } from "../components/monitoring/StationMonitoringPanel";
+import "../styles/monitoring.css";
 
 interface MonitoringPageProps {
   videos: VideoInfo[];
@@ -24,6 +26,7 @@ const INITIAL_OVERVIEW: DetectionOverview = {
 export function MonitoringPage({ videos }: MonitoringPageProps) {
   const [selectedVideo, setSelectedVideo] = useState<VideoInfo | null>(null);
   const [overview, setOverview] = useState<DetectionOverview>(INITIAL_OVERVIEW);
+  const [latestMetrics, setLatestMetrics] = useState<DetectionMetricsMessage | null>(null);
 
   useEffect(() => {
     if (!selectedVideo) {
@@ -32,6 +35,7 @@ export function MonitoringPage({ videos }: MonitoringPageProps) {
   }, [selectedVideo]);
 
   const handleMetricsUpdate = (metrics: DetectionMetricsMessage) => {
+    setLatestMetrics(metrics);
     setOverview({
       status: "active",
       lastUpdate: new Date(metrics.timestamp).toLocaleTimeString([], {
@@ -102,11 +106,27 @@ export function MonitoringPage({ videos }: MonitoringPageProps) {
           <div className="panel-header">
             <h3>DETECCIONES EN TIEMPO REAL</h3>
           </div>
-          <DetectionPanel
-            video={selectedVideo}
-            onMetricsUpdate={handleMetricsUpdate}
-            onConnectionChange={handleConnectionChange}
-          />
+          {selectedVideo ? (
+            <>
+              <DetectionPanel
+                video={selectedVideo}
+                onMetricsUpdate={handleMetricsUpdate}
+                onConnectionChange={handleConnectionChange}
+              />
+              <StationMonitoringPanel 
+                cameraId={selectedVideo.id}
+                latestMetrics={latestMetrics}
+              />
+            </>
+          ) : (
+            <div className="no-camera-selected">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
+                <polyline points="17 2 12 7 7 2"/>
+              </svg>
+              <p>Seleccione una cámara para ver las detecciones</p>
+            </div>
+          )}
         </aside>
       </div>
     </div>

@@ -30,6 +30,44 @@ class RoutingService {
     return response.json();
   }
 
+  async getStation(stationId: string): Promise<import("../types/routing.types").Station> {
+    const response = await fetch(`${this.baseUrl}/stations/${stationId}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch station ${stationId}`);
+    }
+    return response.json();
+  }
+
+  async getStationStatus(stationId: string): Promise<import("../types/routing.types").StationStatus> {
+    const response = await fetch(`${this.baseUrl}/stations/${stationId}/status`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch station status for ${stationId}`);
+    }
+    return response.json();
+  }
+
+  async getStationByCameraId(cameraId: string): Promise<import("../types/routing.types").Station | null> {
+    try {
+      const stationsResponse = await this.getStations();
+      const station = stationsResponse.stations.find(s => s.camera_id === cameraId);
+      return station || null;
+    } catch (error) {
+      console.error(`Failed to find station by camera ${cameraId}:`, error);
+      return null;
+    }
+  }
+
+  async getStationStatusByCameraId(cameraId: string): Promise<import("../types/routing.types").StationStatus | null> {
+    try {
+      const station = await this.getStationByCameraId(cameraId);
+      if (!station) return null;
+      return await this.getStationStatus(station.id);
+    } catch (error) {
+      console.error(`Failed to find station status by camera ${cameraId}:`, error);
+      return null;
+    }
+  }
+
   async getStationStatuses(): Promise<StationStatusesResponse> {
     const response = await fetch(`${this.baseUrl}/stations/status`);
     if (!response.ok) {
