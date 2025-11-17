@@ -15,7 +15,7 @@ export function CameraPanel({
   return (
     <aside className="cameras-panel">
       <div className="panel-header">
-        <h3>Cámaras del Sistema</h3>
+        <h3>CÁMARAS</h3>
         <span className="camera-count">{videos.length}</span>
       </div>
       <div className="cameras-grid">

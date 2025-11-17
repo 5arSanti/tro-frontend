@@ -151,7 +151,7 @@ export function DetectionPanel({
   return (
     <div className="detections-container">
       <div className="detection-status-header">
-        <h3>Detecciones en Tiempo Real</h3>
+        <h3>DETECCIONES EN VIVO</h3>
         <span className={`connection-indicator ${connectionState}`}>
           {connectionLabel(connectionState)}
         </span>

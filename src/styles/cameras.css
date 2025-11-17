@@ -1,0 +1,188 @@
+/* Cameras Page Styles */
+.cameras-page {
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  padding: 2rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+}
+
+.page-header h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  margin: 0 0 0.5rem 0;
+}
+
+.page-subtitle {
+  color: #8892a6;
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 300;
+}
+
+.cameras-grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.camera-grid-card {
+  background: linear-gradient(135deg, #1a1f2e 0%, #252b3b 100%);
+  border-radius: 2px;
+  border-left: 3px solid rgba(0, 168, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.camera-grid-card:hover {
+  border-left-color: var(--metro-accent);
+  box-shadow: 0 4px 12px rgba(0, 168, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.camera-grid-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.camera-grid-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 168, 255, 0.1);
+  border: 1px solid rgba(0, 168, 255, 0.3);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--metro-accent);
+}
+
+.camera-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 200, 81, 0.1);
+  border: 1px solid rgba(0, 200, 81, 0.3);
+  border-radius: 2px;
+  color: var(--metro-success);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.status-dot-inline {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--metro-success);
+  box-shadow: 0 0 8px var(--metro-success);
+}
+
+.camera-grid-body {
+  padding: 1.5rem;
+}
+
+.camera-grid-body h3 {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.5px;
+}
+
+.camera-grid-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.meta-label {
+  color: #8892a6;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.meta-value {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.camera-grid-footer {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.camera-stats-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-inline-label {
+  color: #8892a6;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-inline-value {
+  color: var(--metro-accent);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Responsive Cameras Page */
+@media (max-width: 768px) {
+  .cameras-page {
+    padding: 1rem;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cameras-grid-view {
+    grid-template-columns: 1fr;
+  }
+}
+

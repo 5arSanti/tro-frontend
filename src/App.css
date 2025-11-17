@@ -32,6 +32,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
 }
 
 /* Header */
@@ -76,6 +77,7 @@ body {
   height: 100%;
   flex: 1;
   padding: 0;
+  overflow-y: auto;
 }
 
 /* Video Detection Container */
@@ -223,9 +225,10 @@ body {
 }
 
 .panel-header h3 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 700;
   margin: 0;
+  letter-spacing: 1.5px;
 }
 
 .camera-count {
@@ -245,51 +248,50 @@ body {
 }
 
 .camera-card {
-  background: #f8f9fa;
-  border: 2px solid transparent;
-  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid rgba(0, 168, 255, 0.3);
+  border-radius: 2px;
   padding: 0.75rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   gap: 0.75rem;
   align-items: center;
 }
 
 .camera-card:hover {
-  background: #e9ecef;
-  border-color: var(--metro-accent);
-  transform: translateX(4px);
+  background: rgba(0, 168, 255, 0.05);
+  border-left-color: var(--metro-accent);
+  border-color: rgba(0, 168, 255, 0.2);
 }
 
 .camera-card.selected {
-  background: linear-gradient(
-    135deg,
-    var(--metro-primary),
-    var(--metro-accent)
-  );
+  background: rgba(0, 168, 255, 0.15);
   color: white;
-  border-color: var(--metro-accent);
-  box-shadow: var(--shadow-md);
+  border-left-color: var(--metro-accent);
+  border-color: rgba(0, 168, 255, 0.3);
+  box-shadow: 0 0 12px rgba(0, 168, 255, 0.2);
 }
 
 .camera-preview {
   position: relative;
   width: 50px;
   height: 50px;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 6px;
+  background: rgba(0, 168, 255, 0.1);
+  border: 1px solid rgba(0, 168, 255, 0.3);
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--metro-accent);
+  flex-shrink: 0;
 }
 
 .camera-card.selected .camera-preview {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.camera-icon {
-  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
 }
 
 .camera-status {
@@ -310,16 +312,31 @@ body {
   background: var(--metro-success);
 }
 
+.camera-info {
+  flex: 1;
+}
+
 .camera-info h4 {
   font-size: 0.875rem;
   margin: 0 0 0.25rem 0;
-  font-weight: 600;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.camera-card.selected .camera-info h4 {
+  color: white;
 }
 
 .camera-id {
-  font-size: 0.75rem;
-  opacity: 0.7;
+  font-size: 0.7rem;
+  color: #8892a6;
   margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.camera-card.selected .camera-id {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Main View */
@@ -517,14 +534,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .detection-status-header h3 {
-  font-size: 1.1rem;
+  font-size: 0.875rem;
   color: var(--metro-dark);
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 1.5px;
 }
 
 .detection-stats {
@@ -534,38 +552,46 @@ body {
 }
 
 .stat-card {
-  background: #f8f9fa;
-  color: var(--metro-dark);
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
   padding: 1rem;
-  border-radius: 10px;
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid rgba(0, 168, 255, 0.3);
 }
 
 .stat-card.highlight {
-  background: linear-gradient(
-    135deg,
-    var(--metro-accent),
-    var(--metro-primary)
-  );
-  color: white;
-  border: none;
+  background: rgba(0, 168, 255, 0.15);
+  border-left-color: var(--metro-accent);
+  box-shadow: 0 0 12px rgba(0, 168, 255, 0.15);
+}
+
+.stat-card .stat-label {
+  color: #8892a6;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .stat-card.highlight .stat-label {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .stat-number {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 300;
+  color: white;
+  letter-spacing: -1px;
 }
 
-.stat-card.highlight .stat-number {
-  color: white;
+.stat-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--metro-accent);
 }
 
 .detections-list {
