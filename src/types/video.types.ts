@@ -35,3 +35,16 @@ export type DetectionConnectionState =
   | "error";
 
 export type ViewMode = "dashboard" | "monitoring" | "camera";
+
+export interface HealthCheckResponse {
+  status: "healthy" | "unhealthy";
+  version: string;
+  environment: string;
+}
+
+export interface SystemStatus {
+  isOnline: boolean;
+  version: string;
+  environment: string;
+  lastChecked: Date | null;
+}

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { VideoInfo } from "../types/video.types";
+import { useHealthCheck } from "../hooks/useHealthCheck";
 
 interface HomePageProps {
   videos: VideoInfo[];
@@ -7,6 +8,7 @@ interface HomePageProps {
 
 export function HomePage({ videos }: HomePageProps) {
   const navigate = useNavigate();
+  const systemHealth = useHealthCheck();
 
   const handleStartMonitoring = () => {
     navigate("/monitoring");
@@ -30,20 +32,20 @@ export function HomePage({ videos }: HomePageProps) {
           </div>
 
           <div className="dashboard-card">
-            <div className="card-label">Precisión del Sistema</div>
-            <div className="card-value">98.5%</div>
+            <div className="card-label">Versión del Sistema</div>
+            <div className="card-value">{systemHealth.version}</div>
           </div>
 
           <div className="dashboard-card">
-            <div className="card-label">Tiempo de Actividad</div>
-            <div className="card-value">99.9%</div>
+            <div className="card-label">Entorno</div>
+            <div className="card-value">{systemHealth.environment}</div>
           </div>
 
           <div className="dashboard-card">
             <div className="card-label">Estado del Sistema</div>
             <div className="card-value card-status">
-              <span className="status-indicator-dot"></span>
-              Operativo
+              <span className={`status-indicator-dot ${systemHealth.isOnline ? 'online' : 'offline'}`}></span>
+              {systemHealth.isOnline ? "Operativo" : "Desconectado"}
             </div>
           </div>
         </div>

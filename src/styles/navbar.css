@@ -98,22 +98,41 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: rgba(0, 200, 81, 0.1);
-  border: 1px solid rgba(0, 200, 81, 0.3);
   border-radius: 2px;
-  color: var(--metro-success);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.navbar-status.online {
+  background: rgba(0, 200, 81, 0.1);
+  border: 1px solid rgba(0, 200, 81, 0.3);
+  color: var(--metro-success);
+}
+
+.navbar-status.offline {
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  color: var(--metro-danger);
 }
 
 .status-indicator-live {
   width: 8px;
   height: 8px;
   border-radius: 50%;
+  animation: pulse-status 2s infinite;
+}
+
+.navbar-status.online .status-indicator-live {
   background: var(--metro-success);
   box-shadow: 0 0 8px var(--metro-success);
-  animation: pulse-status 2s infinite;
+}
+
+.navbar-status.offline .status-indicator-live {
+  background: var(--metro-danger);
+  box-shadow: 0 0 8px var(--metro-danger);
+  animation: pulse-status-offline 1s infinite;
 }
 
 @keyframes pulse-status {
@@ -122,6 +141,15 @@
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+@keyframes pulse-status-offline {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
   }
 }
 

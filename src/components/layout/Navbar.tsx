@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
+import { useHealthCheck } from "../../hooks/useHealthCheck";
 
 export function Navbar() {
+  const systemHealth = useHealthCheck();
+
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -47,9 +50,9 @@ export function Navbar() {
         </NavLink>
       </div>
       
-      <div className="navbar-status">
+      <div className={`navbar-status ${systemHealth.isOnline ? 'online' : 'offline'}`}>
         <div className="status-indicator-live"></div>
-        <span>Sistema Operativo</span>
+        <span>{systemHealth.isOnline ? "Sistema Operativo" : "Sistema Desconectado"}</span>
       </div>
     </nav>
   );

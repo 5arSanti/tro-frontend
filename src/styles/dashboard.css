@@ -116,14 +116,28 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+.status-indicator-dot.online {
   background: var(--metro-success);
   box-shadow: 0 0 12px var(--metro-success);
-  animation: pulse-dot 2s infinite;
+}
+
+.status-indicator-dot.offline {
+  background: var(--metro-danger);
+  box-shadow: 0 0 12px var(--metro-danger);
+  animation: pulse-dot-offline 1s infinite;
 }
 
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
+}
+
+@keyframes pulse-dot-offline {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 .dashboard-actions {
