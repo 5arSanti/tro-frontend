@@ -58,7 +58,7 @@ export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonit
 
     fetchStationData();
 
-    // Refresh status every 5 seconds
+    // Refresh status every 1 seconds
     const interval = setInterval(async () => {
       try {
         const statusData = await routingService.getStationStatusByCameraId(cameraId);
@@ -68,7 +68,7 @@ export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonit
       } catch (err) {
         console.error("Error refreshing station status:", err);
       }
-    }, 5000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [cameraId]);
