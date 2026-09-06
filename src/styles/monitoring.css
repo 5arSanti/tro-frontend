@@ -24,7 +24,7 @@
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(0, 168, 255, 0.2);
+  border: 3px solid rgba(61, 142, 196, 0.2);
   border-top-color: var(--metro-accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -37,8 +37,8 @@
 /* Station Header */
 .monitoring-station-header {
   padding: 1.5rem;
-  background: linear-gradient(135deg, #1a1f2e 0%, #252b3b 100%);
-  border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+  background: var(--metro-gray);
+  border-bottom: 1px solid rgba(61, 142, 196, 0.2);
 }
 
 .station-header-content {
@@ -50,9 +50,9 @@
 .station-icon-large {
   width: 64px;
   height: 64px;
-  background: rgba(0, 168, 255, 0.15);
-  border: 1px solid rgba(0, 168, 255, 0.3);
-  border-radius: 4px;
+  background: rgba(61, 142, 196, 0.15);
+  border: 1px solid rgba(61, 142, 196, 0.3);
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,8 +80,8 @@
 .station-line-tag,
 .station-id-tag {
   padding: 0.35rem 0.75rem;
-  background: rgba(0, 168, 255, 0.2);
-  border: 1px solid rgba(0, 168, 255, 0.4);
+  background: rgba(61, 142, 196, 0.2);
+  border: 1px solid rgba(61, 142, 196, 0.4);
   border-radius: 2px;
   color: var(--metro-accent);
   font-size: 0.75rem;
@@ -127,12 +127,12 @@
   gap: 0.5rem;
   padding: 1.25rem;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  border-left: 3px solid rgba(136, 146, 166, 0.3);
+  border-radius: 2px;
+  border-left: 1px solid rgba(136, 146, 166, 0.3);
 }
 
 .metric-card.highlight {
-  background: rgba(0, 168, 255, 0.15);
+  background: rgba(61, 142, 196, 0.15);
   border-left-color: var(--metro-accent);
 }
 
@@ -173,9 +173,9 @@
   align-items: flex-start;
   gap: 1rem;
   padding: 1.25rem;
-  background: rgba(0, 168, 255, 0.1);
-  border: 1px solid rgba(0, 168, 255, 0.3);
-  border-radius: 4px;
+  background: rgba(61, 142, 196, 0.1);
+  border: 1px solid rgba(61, 142, 196, 0.3);
+  border-radius: 2px;
 }
 
 .dispatch-train-info svg {
@@ -214,7 +214,7 @@
   gap: 0.35rem;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .dispatch-metric-label {
@@ -237,7 +237,7 @@
   gap: 0.5rem;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .status-badge {
@@ -267,7 +267,7 @@
   text-align: center;
   color: #8892a6;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .no-dispatch-data p {
@@ -292,7 +292,7 @@
   align-items: center;
   padding: 0.875rem;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .config-label {
@@ -320,13 +320,13 @@
   padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
+  border-radius: 2px;
   transition: all 0.2s ease;
 }
 
 .train-item:hover {
-  background: rgba(0, 168, 255, 0.05);
-  border-color: rgba(0, 168, 255, 0.2);
+  background: rgba(61, 142, 196, 0.05);
+  border-color: rgba(61, 142, 196, 0.2);
 }
 
 .train-item-header {
@@ -373,16 +373,16 @@
   min-width: 24px;
   height: 24px;
   padding: 0 0.35rem;
-  background: rgba(0, 168, 255, 0.15);
-  border: 1px solid rgba(0, 168, 255, 0.3);
+  background: rgba(61, 142, 196, 0.15);
+  border: 1px solid rgba(61, 142, 196, 0.3);
   border-radius: 2px;
   font-size: 0.75rem;
   font-weight: 700;
 }
 
 .train-spec.highlight .spec-icon {
-  background: rgba(0, 168, 255, 0.25);
-  border-color: rgba(0, 168, 255, 0.5);
+  background: rgba(61, 142, 196, 0.25);
+  border-color: rgba(61, 142, 196, 0.5);
   color: var(--metro-accent);
 }
 

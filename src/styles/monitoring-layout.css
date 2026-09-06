@@ -10,8 +10,8 @@
 
 /* Left Sidebar - Cameras */
 .cameras-sidebar {
-  background: linear-gradient(180deg, #1a1f2e 0%, #252b3b 100%);
-  border-right: 1px solid rgba(0, 168, 255, 0.2);
+  background: var(--metro-gray);
+  border-right: 1px solid rgba(61, 142, 196, 0.2);
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -25,19 +25,19 @@
 }
 
 .cameras-sidebar::-webkit-scrollbar-thumb {
-  background: rgba(0, 168, 255, 0.3);
-  border-radius: 4px;
+  background: rgba(61, 142, 196, 0.3);
+  border-radius: 2px;
 }
 
 .cameras-sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 168, 255, 0.5);
+  background: rgba(61, 142, 196, 0.5);
 }
 
 /* Main Content */
 .monitoring-main {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  background: var(--metro-dark);
   overflow: hidden;
   position: relative;
 }
@@ -60,20 +60,19 @@
 }
 
 .monitoring-content-wrapper::-webkit-scrollbar-thumb {
-  background: rgba(0, 168, 255, 0.4);
-  border-radius: 5px;
+  background: rgba(61, 142, 196, 0.4);
+  border-radius: 2px;
 }
 
 .monitoring-content-wrapper::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 168, 255, 0.6);
+  background: rgba(61, 142, 196, 0.6);
 }
 
 /* Top Bar - Camera Info and Detection Stats */
 .monitoring-top-bar {
-  background: linear-gradient(135deg, #1a1f2e 0%, #252b3b 100%);
-  border-bottom: 2px solid rgba(0, 168, 255, 0.3);
+  background: var(--metro-gray);
+  border-bottom: 1px solid rgba(61, 142, 196, 0.3);
   z-index: 10;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .top-bar-content {
@@ -87,7 +86,7 @@
   gap: 1rem;
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.2);
-  border-right: 1px solid rgba(0, 168, 255, 0.2);
+  border-right: 1px solid rgba(61, 142, 196, 0.2);
 }
 
 .camera-info svg {
@@ -110,7 +109,7 @@
   padding: 0.5rem 1rem;
   background: rgba(255, 68, 68, 0.15);
   border: 1px solid rgba(255, 68, 68, 0.4);
-  border-radius: 20px;
+  border-radius: 2px;
   color: #ff4444;
   font-size: 0.7rem;
   font-weight: 700;
@@ -129,11 +128,9 @@
 @keyframes pulse-live {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 8px rgba(255, 68, 68, 0.8);
   }
   50% {
     opacity: 0.6;
-    box-shadow: 0 0 4px rgba(255, 68, 68, 0.4);
   }
 }
 
@@ -162,16 +159,16 @@
 .detection-quick-stats .stat-card {
   flex: 1;
   padding: 5px;
-  background: rgba(0, 168, 255, 0.08);
-  border: 1px solid rgba(0, 168, 255, 0.2);
-  border-radius: 4px;
+  background: rgba(61, 142, 196, 0.08);
+  border: 1px solid rgba(61, 142, 196, 0.2);
+  border-radius: 2px;
   text-align: center;
   transition: all 0.2s ease;
 }
 
 .detection-quick-stats .stat-card:hover {
-  background: rgba(0, 168, 255, 0.15);
-  border-color: rgba(0, 168, 255, 0.4);
+  background: rgba(61, 142, 196, 0.15);
+  border-color: rgba(61, 142, 196, 0.4);
   transform: translateY(-2px);
 }
 
@@ -207,20 +204,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(10, 15, 25, 0.8) 100%);
+  background: var(--metro-dark);
   flex-direction: column;
   padding: 1.5rem;
   position: relative;
 }
 
 .video-main-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 168, 255, 0.3), transparent);
 }
 
 .video-main-section .video-display {
@@ -229,9 +219,8 @@
   max-width: 100%;
   max-height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 168, 255, 0.2);
-  border-radius: 4px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(61, 142, 196, 0.2);
+  border-radius: 2px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -272,14 +261,14 @@
 /* Station Info Section - Bottom */
 .station-info-section {
   flex-shrink: 0;
-  background: linear-gradient(135deg, #1a1f2e 0%, #252b3b 100%);
-  border-top: 1px solid rgba(0, 168, 255, 0.2);
+  background: var(--metro-gray);
+  border-top: 1px solid rgba(61, 142, 196, 0.2);
 }
 
 .station-info-header {
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(0, 168, 255, 0.15);
+  border-bottom: 1px solid rgba(61, 142, 196, 0.15);
 }
 
 .station-info-header h3 {
@@ -351,16 +340,16 @@
 
 .detection-overview-content .stat-card {
   padding: 0.875rem;
-  background: rgba(0, 168, 255, 0.08);
-  border: 1px solid rgba(0, 168, 255, 0.2);
-  border-radius: 3px;
+  background: rgba(61, 142, 196, 0.08);
+  border: 1px solid rgba(61, 142, 196, 0.2);
+  border-radius: 2px;
   text-align: center;
   transition: all 0.2s ease;
 }
 
 .detection-overview-content .stat-card:hover {
-  background: rgba(0, 168, 255, 0.15);
-  border-color: rgba(0, 168, 255, 0.4);
+  background: rgba(61, 142, 196, 0.15);
+  border-color: rgba(61, 142, 196, 0.4);
   transform: translateY(-2px);
 }
 
@@ -398,8 +387,8 @@
 }
 
 .detection-overview-content .detection-list-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 168, 255, 0.3);
-  border-radius: 3px;
+  background: rgba(61, 142, 196, 0.3);
+  border-radius: 2px;
 }
 
 .detection-overview-content .detection-list {
@@ -411,14 +400,14 @@
 .detection-overview-content .detection-item {
   padding: 0.75rem;
   background: rgba(0, 0, 0, 0.2);
-  border-left: 3px solid rgba(0, 168, 255, 0.4);
+  border-left: 1px solid rgba(61, 142, 196, 0.4);
   border-radius: 2px;
   transition: all 0.2s ease;
 }
 
 .detection-overview-content .detection-item:hover {
-  background: rgba(0, 168, 255, 0.08);
-  border-left-color: var(--metro-accent);
+  background: rgba(61, 142, 196, 0.08);
+  border-color: var(--metro-accent);
   transform: translateX(3px);
 }
 
@@ -489,7 +478,7 @@
   
   .camera-info {
     border-right: none;
-    border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+    border-bottom: 1px solid rgba(61, 142, 196, 0.2);
     min-width: auto;
   }
 }
@@ -514,7 +503,7 @@
   
   .cameras-sidebar {
     border-right: none;
-    border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+    border-bottom: 1px solid rgba(61, 142, 196, 0.2);
     max-height: 200px;
   }
   
