@@ -13,7 +13,7 @@
   justify-content: center;
   padding: 3rem 1.5rem;
   text-align: center;
-  color: #8892a6;
+  color: #a8b0bd;
   gap: 1rem;
 }
 
@@ -92,7 +92,7 @@
 .station-id-tag {
   background: rgba(136, 146, 166, 0.2);
   border-color: rgba(136, 146, 166, 0.3);
-  color: #8892a6;
+  color: #a8b0bd;
 }
 
 /* Monitoring Sections */
@@ -137,7 +137,7 @@
 }
 
 .metric-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 1px;
@@ -156,7 +156,7 @@
 }
 
 .metric-time {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.75rem;
   margin-top: 0.25rem;
 }
@@ -198,7 +198,7 @@
 }
 
 .train-specs {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.8rem;
 }
 
@@ -218,7 +218,7 @@
 }
 
 .dispatch-metric-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -258,14 +258,14 @@
 }
 
 .status-timestamp {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.75rem;
 }
 
 .no-dispatch-data {
   padding: 2rem;
   text-align: center;
-  color: #8892a6;
+  color: #a8b0bd;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 2px;
 }
@@ -296,7 +296,7 @@
 }
 
 .config-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -357,7 +357,7 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.75rem;
   font-weight: 600;
 }
@@ -394,7 +394,7 @@
   justify-content: center;
   padding: 3rem 2rem;
   text-align: center;
-  color: #8892a6;
+  color: #a8b0bd;
   gap: 1rem;
 }
 

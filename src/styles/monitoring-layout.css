@@ -174,7 +174,7 @@
 
 .detection-quick-stats .stat-label {
   display: block;
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 1px;
@@ -298,7 +298,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #8892a6;
+  color: #a8b0bd;
   text-align: center;
   padding: 3rem;
   gap: 1.5rem;
@@ -318,7 +318,7 @@
 }
 
 .no-camera-selected-main p {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 1rem;
   margin: 0;
   max-width: 400px;
@@ -355,7 +355,7 @@
 
 .detection-overview-content .stat-label {
   display: block;
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 1px;
@@ -426,7 +426,7 @@
 
 .detection-overview-content .detection-confidence {
   font-size: 0.75rem;
-  color: #8892a6;
+  color: #a8b0bd;
 }
 
 .detection-overview-content .detection-coords {
@@ -442,7 +442,7 @@
   justify-content: center;
   padding: 2rem 1rem;
   text-align: center;
-  color: #8892a6;
+  color: #a8b0bd;
   gap: 0.75rem;
 }
 

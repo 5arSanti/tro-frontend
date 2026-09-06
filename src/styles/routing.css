@@ -23,7 +23,7 @@
 }
 
 .routing-subtitle {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.95rem;
   margin: 0;
   font-weight: 300;
@@ -65,7 +65,7 @@
   background: transparent;
   border: none;
   border-bottom: 3px solid transparent;
-  color: #8892a6;
+  color: #a8b0bd;
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 500;
@@ -95,7 +95,7 @@
 }
 
 .tab-description {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.95rem;
   margin-bottom: 2rem;
 }
@@ -184,7 +184,7 @@
 }
 
 .spec-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -285,7 +285,7 @@
 }
 
 .meta-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -303,7 +303,7 @@
 }
 
 .trains-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -367,7 +367,7 @@
 }
 
 .status-line {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -394,7 +394,7 @@
 .status-indicator.idle {
   background: rgba(136, 146, 166, 0.2);
   border: 1px solid rgba(136, 146, 166, 0.3);
-  color: #8892a6;
+  color: #a8b0bd;
 }
 
 .status-dot {
@@ -432,7 +432,7 @@
 }
 
 .metric-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 1px;
@@ -475,7 +475,7 @@
 }
 
 .detail-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -503,14 +503,14 @@
 }
 
 .status-time {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.75rem;
 }
 
 .status-empty {
   text-align: center;
   padding: 2rem;
-  color: #8892a6;
+  color: #a8b0bd;
 }
 
 .status-empty p {
@@ -547,7 +547,7 @@
 }
 
 .dispatch-panel-header p {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.95rem;
   margin: 0;
 }
@@ -716,7 +716,7 @@
 }
 
 .result-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -736,7 +736,7 @@
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.875rem;
 }
 
@@ -802,7 +802,7 @@
 }
 
 .summary-label {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;

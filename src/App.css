@@ -1,15 +1,15 @@
 /* Reset y Variables */
 :root {
-  --metro-primary: #1b4d73;
-  --metro-secondary: #143a57;
-  --metro-accent: #3d8ec4;
+  --metro-primary: #1a3a5c;
+  --metro-secondary: #0b1220;
+  --metro-accent: #c4a574;
   --metro-success: #2f7d4a;
   --metro-warning: #c4922a;
   --metro-danger: #b33a32;
-  --metro-dark: #101410;
-  --metro-gray: #181d1a;
-  --metro-light: #f3f4f2;
-  --metro-border: #c5c9c4;
+  --metro-dark: #0b1220;
+  --metro-gray: #121a2b;
+  --metro-light: #f7f5f0;
+  --metro-border: #c5c8ce;
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -333,7 +333,7 @@ body {
 
 .camera-id {
   font-size: 0.7rem;
-  color: #8892a6;
+  color: #a8b0bd;
   margin: 0;
   letter-spacing: 0.5px;
 }
@@ -659,7 +659,7 @@ body {
 
 .connection-indicator.closed {
   background: rgba(108, 117, 125, 0.2);
-  color: #8892a6;
+  color: #a8b0bd;
   border-color: rgba(108, 117, 125, 0.3);
 }
 
@@ -945,11 +945,11 @@ body {
   height: 100%;
   padding: 2rem;
   text-align: center;
-  color: #8892a6;
+  color: #a8b0bd;
 }
 
 .empty-detections p {
-  color: #8892a6;
+  color: #a8b0bd;
   font-size: 0.95rem;
 }
 
