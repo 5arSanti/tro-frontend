@@ -31,8 +31,8 @@ export function HomePage({ videos }: HomePageProps) {
     <div className="dashboard-container">
       <div className="dashboard-content">
         <div className="dashboard-hero">
-          <div className="hero-badge">TRO SYSTEM</div>
-          <h1>Sistema de Monitoreo y Vigilancia</h1>
+          <div className="hero-badge">TORNS</div>
+          <h1>Demanda y despacho</h1>
           <p className="hero-subtitle">
             Plataforma de Control de Rutas con Detección Inteligente en Tiempo Real
           </p>

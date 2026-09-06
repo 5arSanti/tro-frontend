@@ -1,15 +1,15 @@
 /* Reset y Variables */
 :root {
-  --metro-primary: #0066cc;
-  --metro-secondary: #0052a3;
-  --metro-accent: #00a8ff;
-  --metro-success: #00c851;
-  --metro-warning: #ffbb33;
-  --metro-danger: #ff4444;
-  --metro-dark: #1a1a2e;
-  --metro-gray: #16213e;
-  --metro-light: #f8f9fa;
-  --metro-border: #e1e8ed;
+  --metro-primary: #1b4d73;
+  --metro-secondary: #143a57;
+  --metro-accent: #3d8ec4;
+  --metro-success: #2f7d4a;
+  --metro-warning: #c4922a;
+  --metro-danger: #b33a32;
+  --metro-dark: #101410;
+  --metro-gray: #181d1a;
+  --metro-light: #f3f4f2;
+  --metro-border: #c5c9c4;
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -22,9 +22,9 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: #333;
+  font-family: "Schibsted Grotesk", sans-serif;
+  background: var(--night);
+  color: var(--paper);
   min-height: 100vh;
 }
 
@@ -32,7 +32,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  background: var(--night);
 }
 
 /* Header */

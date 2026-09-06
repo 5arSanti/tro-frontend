@@ -7,10 +7,10 @@ export function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <div className="brand-logo">TRO</div>
+        <div className="brand-logo">TORNS</div>
         <div className="brand-text">
-          <span className="brand-title">Sistema de Vigilancia</span>
-          <span className="brand-subtitle">Transport Route Optimization</span>
+          <span className="brand-title">Centro de control</span>
+          <span className="brand-subtitle">by LIRN</span>
         </div>
       </div>
       
