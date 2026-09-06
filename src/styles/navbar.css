@@ -19,7 +19,7 @@
 }
 
 .brand-logo {
-  background: transparent;
+  background: color-mix(in srgb, var(--civic) 25%, transparent);
   border-radius: 2px;
   padding: 0.55rem 0.65rem;
   display: flex;
@@ -29,7 +29,7 @@
   font-size: 0.875rem;
   color: var(--paper);
   letter-spacing: 1px;
-  border: 1px solid var(--champagne);
+  border: 1px solid var(--civic-strong);
 }
 
 .brand-text {

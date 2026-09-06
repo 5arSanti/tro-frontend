@@ -1,14 +1,14 @@
 /* Reset y Variables */
 :root {
-  --metro-primary: #1a3a5c;
-  --metro-secondary: #0b1220;
-  --metro-accent: #c4a574;
+  --metro-primary: #1b4d73;
+  --metro-secondary: #0b1f3a;
+  --metro-accent: #3d8ec4;
   --metro-success: #2f7d4a;
   --metro-warning: #c4922a;
   --metro-danger: #b33a32;
-  --metro-dark: #0b1220;
-  --metro-gray: #121a2b;
-  --metro-light: #f7f5f0;
+  --metro-dark: #0b1f3a;
+  --metro-gray: #12263f;
+  --metro-light: #f3f4f2;
   --metro-border: #c5c8ce;
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
