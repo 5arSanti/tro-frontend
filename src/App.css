@@ -212,7 +212,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(0, 168, 255, 0.2);
+  border: 1px solid rgba(61, 142, 196, 0.2);
 }
 
 .panel-header {
@@ -262,26 +262,26 @@ body {
 }
 
 .camera-card:hover {
-  background: rgba(0, 168, 255, 0.1);
+  background: rgba(61, 142, 196, 0.1);
   border-left-color: var(--metro-accent);
-  border-color: rgba(0, 168, 255, 0.3);
-  box-shadow: 0 2px 8px rgba(0, 168, 255, 0.2);
+  border-color: rgba(61, 142, 196, 0.3);
+  box-shadow: 0 2px 8px rgba(61, 142, 196, 0.2);
 }
 
 .camera-card.selected {
-  background: linear-gradient(135deg, rgba(0, 168, 255, 0.25) 0%, rgba(0, 102, 204, 0.25) 100%);
+  background: linear-gradient(135deg, rgba(61, 142, 196, 0.25) 0%, rgba(61, 142, 196, 0.25) 100%);
   color: white;
   border-left-color: var(--metro-accent);
-  border-color: rgba(0, 168, 255, 0.5);
-  box-shadow: 0 4px 16px rgba(0, 168, 255, 0.3);
+  border-color: rgba(61, 142, 196, 0.5);
+  box-shadow: 0 4px 16px rgba(61, 142, 196, 0.3);
 }
 
 .camera-preview {
   position: relative;
   width: 50px;
   height: 50px;
-  background: rgba(0, 168, 255, 0.15);
-  border: 1px solid rgba(0, 168, 255, 0.4);
+  background: rgba(61, 142, 196, 0.15);
+  border: 1px solid rgba(61, 142, 196, 0.4);
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -291,10 +291,10 @@ body {
 }
 
 .camera-card.selected .camera-preview {
-  background: rgba(0, 168, 255, 0.3);
-  border-color: rgba(0, 168, 255, 0.6);
+  background: rgba(61, 142, 196, 0.3);
+  border-color: rgba(61, 142, 196, 0.6);
   color: white;
-  box-shadow: 0 0 12px rgba(0, 168, 255, 0.4);
+  box-shadow: 0 0 12px rgba(61, 142, 196, 0.4);
 }
 
 .camera-status {
@@ -350,7 +350,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(0, 168, 255, 0.2);
+  border: 1px solid rgba(61, 142, 196, 0.2);
 }
 
 .view-header {
@@ -378,8 +378,8 @@ body {
 
 .camera-id-badge {
   padding: 0.5rem 1rem;
-  background: rgba(0, 168, 255, 0.15);
-  border: 1px solid rgba(0, 168, 255, 0.3);
+  background: rgba(61, 142, 196, 0.15);
+  border: 1px solid rgba(61, 142, 196, 0.3);
   border-radius: 2px;
   color: var(--metro-accent);
   font-size: 0.75rem;
@@ -480,7 +480,7 @@ body {
 .retry-btn:hover {
   background: var(--metro-primary);
   border-color: var(--metro-primary);
-  box-shadow: 0 4px 12px rgba(0, 168, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(61, 142, 196, 0.3);
 }
 
 .no-selection {
@@ -524,7 +524,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(0, 168, 255, 0.2);
+  border: 1px solid rgba(61, 142, 196, 0.2);
 }
 
 .detections-container {
@@ -574,14 +574,14 @@ body {
 
 .stat-card:hover {
   border-left-color: var(--metro-accent);
-  box-shadow: 0 4px 12px rgba(0, 168, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(61, 142, 196, 0.2);
 }
 
 .stat-card.highlight {
-  background: linear-gradient(135deg, rgba(0, 168, 255, 0.25) 0%, rgba(0, 102, 204, 0.25) 100%);
+  background: linear-gradient(135deg, rgba(61, 142, 196, 0.25) 0%, rgba(61, 142, 196, 0.25) 100%);
   border-left-color: var(--metro-accent);
-  border-color: rgba(0, 168, 255, 0.4);
-  box-shadow: 0 4px 16px rgba(0, 168, 255, 0.3);
+  border-color: rgba(61, 142, 196, 0.4);
+  box-shadow: 0 4px 16px rgba(61, 142, 196, 0.3);
 }
 
 .stat-card .stat-label {
@@ -644,9 +644,9 @@ body {
 }
 
 .connection-indicator.connecting {
-  background: rgba(0, 168, 255, 0.2);
+  background: rgba(61, 142, 196, 0.2);
   color: var(--metro-accent);
-  border-color: rgba(0, 168, 255, 0.4);
+  border-color: rgba(61, 142, 196, 0.4);
 }
 
 .connection-indicator.open {
@@ -731,7 +731,7 @@ body {
 }
 
 .label-chip {
-  background: rgba(0, 102, 204, 0.1);
+  background: rgba(61, 142, 196, 0.1);
   color: var(--metro-primary);
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
