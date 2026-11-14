@@ -143,7 +143,7 @@ function Sidebar({
     >
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-20 flex h-svh w-[var(--sidebar-width)] flex-col border-r border-line bg-sidebar",
+          "fixed inset-y-0 left-0 z-20 flex h-svh w-[var(--sidebar-width)] flex-col border-r border-sidebar-border bg-sidebar",
           state === "collapsed" && "-translate-x-full",
           "transition-transform duration-200",
         )}
@@ -157,10 +157,10 @@ function Sidebar({
 function SidebarInset({ className, children, ...props }: ComponentProps<"main">) {
   return (
     <main
-      className={cn("flex min-h-svh min-w-0 flex-1 flex-col bg-canvas p-2", className)}
+      className={cn("flex min-h-svh min-w-0 flex-1 flex-col bg-canvas", className)}
       {...props}
     >
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg bg-panel text-ink shadow-[0_1px_2px_rgb(11_31_58/0.04),0_12px_32px_rgb(11_31_58/0.06)]">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden border-l border-line bg-panel text-ink">
         {children}
       </div>
     </main>
@@ -223,11 +223,11 @@ function SidebarMenuItem({ className, ...props }: ComponentProps<"li">) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  "flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-sm transition-colors duration-200 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+  "flex w-full items-center gap-2 rounded-none px-2.5 py-2 text-sm transition-colors duration-200 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
   {
     variants: {
       isActive: {
-        true: "bg-sidebar-primary font-medium text-sidebar-primary-foreground hover:bg-sidebar-primary hover:text-sidebar-primary-foreground",
+        true: "bg-sidebar-primary font-semibold text-sidebar-primary-foreground hover:bg-sidebar-primary hover:text-sidebar-primary-foreground",
         false: "text-sidebar-foreground",
       },
     },

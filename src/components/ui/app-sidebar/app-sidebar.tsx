@@ -13,7 +13,7 @@ export function AppSidebar() {
     <Sidebar variant="inset" collapsible="offcanvas">
       <SidebarHeader>
         <Link to="/" className="flex flex-col gap-0.5 px-2 py-1 text-sidebar-foreground">
-          <span className="text-sm font-extrabold tracking-tight">TORNS</span>
+          <span className="text-sm font-extrabold tracking-[-0.04em]">TORNS</span>
           <span className="text-xs text-mute">Centro de control</span>
         </Link>
       </SidebarHeader>

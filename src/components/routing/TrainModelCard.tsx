@@ -2,7 +2,7 @@ import type { TrainModel } from "@/types/routing.types";
 
 export function TrainModelCard({ model }: { model: TrainModel }) {
   return (
-    <div className="rounded-lg bg-canvas p-4">
+    <div className="bg-canvas p-5">
       <h3 className="font-semibold">{model.name}</h3>
       <p className="mt-1 text-sm text-mute">
         {model.wagon_count} vagones · {model.total_capacity} de capacidad

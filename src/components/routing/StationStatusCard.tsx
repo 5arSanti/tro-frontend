@@ -26,7 +26,7 @@ export function StationStatusCard({
   const hasData = status.last_passenger_count !== null && status.last_dispatch !== null;
 
   return (
-    <div className={`rounded-lg bg-canvas p-4 ${onClick ? "cursor-pointer" : ""}`} onClick={onClick}>
+    <div className={`bg-canvas p-5 ${onClick ? "cursor-pointer" : ""}`} onClick={onClick}>
       <div className="flex items-baseline justify-between gap-3">
         <div>
           <h3 className="font-semibold">{status.station.name}</h3>
@@ -37,9 +37,11 @@ export function StationStatusCard({
 
       {hasData && status.last_dispatch ? (
         <div className="mt-4">
-          <p className="text-2xl font-semibold tabular-nums tracking-tight">
+          <p className="text-4xl font-extrabold tabular-nums tracking-[-0.04em]">
             {status.last_passenger_count}
-            <span className="ml-1.5 text-sm font-medium text-mute">personas</span>
+            <span className="ml-2 text-sm font-medium tracking-normal text-mute">
+              {status.last_passenger_count === 1 ? "persona" : "personas"}
+            </span>
           </p>
           <p className="mt-2 text-sm">
             {status.last_dispatch.train_model.name} · {status.last_dispatch.trains_required}{" "}

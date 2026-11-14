@@ -33,7 +33,7 @@ export function VideoStream({ video, onPlayingChange }: VideoStreamProps) {
           <p>Error al cargar el stream de video</p>
           <button
             type="button"
-            className="rounded-md border border-energy px-3 py-2 text-sm text-white"
+            className="rounded-none border border-energy px-3 py-2 text-sm text-white"
             onClick={() => {
               setStreamError(false);
               onPlayingChange?.(true);
@@ -45,7 +45,7 @@ export function VideoStream({ video, onPlayingChange }: VideoStreamProps) {
       )}
       {!streamError ? (
         <div className="absolute top-4 right-4">
-          <span className="rounded-md bg-fail px-2 py-0.5 text-[11px] font-semibold text-white">
+          <span className="rounded-none bg-fail px-2 py-0.5 text-[11px] font-semibold text-white">
             En vivo
           </span>
         </div>

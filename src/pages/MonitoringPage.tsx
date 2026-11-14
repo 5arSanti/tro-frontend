@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { Camera } from "lucide-react";
 import { CameraRail } from "@/components/camera/CameraRail";
 import { DetectionPanel } from "@/components/detection/DetectionPanel";
-import { Header } from "@/components/layout/Header";
 import { StationMonitoringPanel } from "@/components/monitoring/StationMonitoringPanel";
 import { VideoDisplay } from "@/components/video/VideoDisplay";
 import { Button } from "@/components/ui/button";
@@ -93,45 +92,40 @@ export function MonitoringPage() {
         </div>
       ) : null}
 
-      <Header overview={overview} />
-
-      <div className="flex min-h-0 flex-1">
+      <div className="flex min-h-0 min-w-0 flex-1">
         <CameraRail
           videos={videos}
           selectedId={selectedVideo?.id ?? null}
           onSelect={selectVideo}
         />
-        <div className="flex min-w-0 flex-1 flex-col">
-          {selectedVideo ? (
-            <>
-              <div className="flex items-center gap-3 border-b border-line px-5 py-3">
-                <h2 className="text-base font-semibold">{selectedVideo.name}</h2>
-                <DetectionPanel
-                  video={selectedVideo}
-                  onMetricsUpdate={handleMetricsUpdate}
-                  onConnectionChange={handleConnectionChange}
-                />
-              </div>
-              <VideoDisplay selectedVideo={selectedVideo} />
-              <div className="border-t border-line p-5">
-                <StationMonitoringPanel
-                  cameraId={selectedVideo.id}
-                  latestMetrics={latestMetrics}
-                />
-              </div>
-            </>
-          ) : (
-            <div className="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
-              <Camera className="size-8 text-mid" strokeWidth={1.5} />
-              <p className="text-lg font-semibold">Elija una cámara</p>
-              <p className="max-w-sm text-sm leading-relaxed text-mute">
-                {loading
-                  ? "Cargando fuentes…"
-                  : "La lista de la izquierda abre el video y el conteo de personas en estación."}
-              </p>
+        {selectedVideo ? (
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+            <div className="flex items-center gap-3 border-b border-line px-5 py-3">
+              <h2 className="text-base font-extrabold tracking-tight">{selectedVideo.name}</h2>
+              <DetectionPanel
+                video={selectedVideo}
+                onMetricsUpdate={handleMetricsUpdate}
+                onConnectionChange={handleConnectionChange}
+              />
             </div>
-          )}
-        </div>
+            <VideoDisplay selectedVideo={selectedVideo} />
+            <StationMonitoringPanel
+              cameraId={selectedVideo.id}
+              overview={overview}
+              latestMetrics={latestMetrics}
+            />
+          </div>
+        ) : (
+          <div className="flex flex-1 flex-col items-center justify-center gap-3 bg-canvas px-8 text-center">
+            <Camera className="size-8 text-activity-ink" strokeWidth={1.5} />
+            <p className="text-lg font-extrabold tracking-tight">Elija una cámara</p>
+            <p className="max-w-sm text-sm leading-relaxed text-mute">
+              {loading
+                ? "Cargando fuentes…"
+                : "La lista de la izquierda abre el video, el conteo y el plan de despacho."}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

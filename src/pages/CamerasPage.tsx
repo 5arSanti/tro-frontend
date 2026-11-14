@@ -67,11 +67,11 @@ export function CamerasPage() {
   return (
     <div className="flex min-h-0 flex-1">
       <div className="min-w-0 flex-1 overflow-auto p-8">
-        <h1 className="text-2xl font-extrabold tracking-tight">Cámaras</h1>
+        <h1 className="text-3xl font-extrabold tracking-[-0.04em]">Cámaras</h1>
         <p className="mt-1 text-sm text-mute">Fuentes listadas por el prototipo.</p>
 
         {error ? (
-          <div className="mt-5 flex items-center justify-between gap-3 rounded-lg bg-fail/10 px-4 py-3 text-sm">
+          <div className="mt-5 flex items-center justify-between gap-3 bg-fail/10 px-4 py-3 text-sm">
             <p>No se pudieron cargar las fuentes de video.</p>
             <Button variant="outline" onClick={() => void refetch()}>
               Reintentar
@@ -96,7 +96,7 @@ export function CamerasPage() {
                   onClick={() => setSelected(video)}
                   className={cn(
                     "cursor-pointer border-t border-line hover:bg-canvas",
-                    selected?.id === video.id && "bg-sidebar-primary",
+                    selected?.id === video.id && "bg-energy/20",
                   )}
                 >
                   <td className="px-3 py-3 font-medium">{video.name}</td>

@@ -13,7 +13,7 @@ export function StationCard({
   return (
     <div
       className={cn(
-        "rounded-lg bg-canvas p-4",
+        "bg-canvas p-5",
         isSelected && "ring-1 ring-energy",
         onClick && "cursor-pointer",
       )}

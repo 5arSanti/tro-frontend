@@ -1,26 +1,27 @@
 :root {
-  --canvas: #eef5fb;
+  --canvas: #f3f9fd;
   --panel: #ffffff;
   --deep: #0b4f78;
   --mid: #1480b8;
   --energy: #00a8ff;
-  --ink: #0b1f3a;
+  --activity-ink: #006da8;
+  --ink: #000000;
   --paper: #ffffff;
-  --mute: #4d5d6e;
+  --mute: #6b7280;
   --ok: #2f7d4a;
   --warn: #b07a16;
   --fail: #b33a32;
   --video: #000000;
-  --line: #d5e3ee;
+  --line: color-mix(in srgb, #000000 12%, transparent);
   --font-num: ui-monospace, "Fragment Mono", monospace;
 
   --sidebar: #ffffff;
-  --sidebar-foreground: #0b1f3a;
-  --sidebar-primary: #e7f6ff;
-  --sidebar-primary-foreground: #0b4f78;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #000000;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #f3f9fd;
-  --sidebar-accent-foreground: #0b4f78;
-  --sidebar-border: #d5e3ee;
+  --sidebar-accent-foreground: #006da8;
+  --sidebar-border: color-mix(in srgb, #000000 12%, transparent);
   --sidebar-ring: #00a8ff;
   --sidebar-width: 18rem;
   --header-height: 3.25rem;

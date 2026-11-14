@@ -11,9 +11,9 @@ export function CameraRail({
   onSelect: (video: VideoInfo) => void;
 }) {
   return (
-    <aside className="flex w-[240px] shrink-0 flex-col border-r border-line bg-canvas/60">
+    <aside className="flex w-[200px] shrink-0 flex-col border-r border-line bg-canvas">
       <div className="px-4 py-4">
-        <p className="text-sm font-medium">Cámaras</p>
+        <p className="text-sm font-semibold">Cámaras</p>
         <p className="mt-0.5 text-xs text-mute">{videos.length} fuentes</p>
       </div>
       <div className="flex flex-col gap-0.5 overflow-auto px-2 pb-3">
@@ -25,12 +25,16 @@ export function CameraRail({
               type="button"
               onClick={() => onSelect(video)}
               className={cn(
-                "rounded-md px-3 py-2.5 text-left transition-colors duration-200",
-                selected ? "bg-sidebar-primary text-sidebar-primary-foreground" : "text-ink hover:bg-white",
+                "px-3 py-2.5 text-left transition-colors duration-200",
+                selected
+                  ? "bg-energy text-ink"
+                  : "text-ink hover:bg-canvas hover:text-activity-ink",
               )}
             >
-              <p className="truncate text-sm font-medium">{video.name}</p>
-              <p className={cn("truncate text-xs", selected ? "text-deep/70" : "text-mute")}>{video.id}</p>
+              <p className="truncate text-sm font-semibold">{video.name}</p>
+              <p className={cn("truncate text-xs", selected ? "text-ink/70" : "text-mute")}>
+                {video.id}
+              </p>
             </button>
           );
         })}

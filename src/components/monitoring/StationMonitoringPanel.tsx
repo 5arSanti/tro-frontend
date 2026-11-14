@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import type { Station, StationStatus } from "@/types/routing.types";
-import type { DetectionMetricsMessage } from "@/types/video.types";
+import type { DetectionMetricsMessage, DetectionOverview } from "@/types/video.types";
 import { routingService } from "@/services/routingService";
+import { cn } from "@/lib/utils";
 
 interface StationMonitoringPanelProps {
   cameraId: string;
+  overview: DetectionOverview;
   latestMetrics: DetectionMetricsMessage | null;
 }
 
@@ -24,16 +26,18 @@ function formatCycleTime(seconds: number): string {
   return `${minutes}m ${secs}s`;
 }
 
-function Row({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="flex items-baseline justify-between gap-6 py-2">
-      <dt className="shrink-0 text-sm text-mute">{label}</dt>
-      <dd className="text-right text-sm tabular-nums">{value}</dd>
-    </div>
-  );
-}
+const STATUS_LABEL: Record<DetectionOverview["status"], string> = {
+  idle: "En espera",
+  connecting: "Conectando",
+  active: "En vivo",
+  error: "Error",
+};
 
-export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonitoringPanelProps) {
+export function StationMonitoringPanel({
+  cameraId,
+  overview,
+  latestMetrics,
+}: StationMonitoringPanelProps) {
   const [station, setStation] = useState<Station | null>(null);
   const [stationStatus, setStationStatus] = useState<StationStatus | null>(null);
   const [loading, setLoading] = useState(true);
@@ -74,49 +78,75 @@ export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonit
     return () => clearInterval(interval);
   }, [cameraId]);
 
-  if (loading) {
-    return <p className="text-sm text-mute">Cargando información de la estación…</p>;
-  }
-
-  if (error || !station) {
-    return <p className="text-sm text-fail">{error || "Error al cargar la estación"}</p>;
-  }
-
-  const currentPassengerCount = latestMetrics?.personCount ?? latestMetrics?.person_count ?? 0;
+  const personCount = latestMetrics?.personCount ?? latestMetrics?.person_count ?? overview.personCount;
   const lastDispatch = stationStatus?.last_dispatch;
+  const observedAt = latestMetrics?.timestamp
+    ? formatTime(latestMetrics.timestamp)
+    : overview.lastUpdate;
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <div>
-        <h3 className="text-lg font-semibold">{station.name}</h3>
-        <p className="mt-1 text-sm text-mute">
-          {station.line} · {currentPassengerCount} personas
-          {latestMetrics ? ` · ${formatTime(latestMetrics.timestamp)}` : ""}
-        </p>
-        <dl className="mt-4 divide-y divide-line">
-          <Row label="Cámara" value={station.camera_id} />
-          <Row label="Tiempo de viaje" value={`${station.travel_time_seconds}s`} />
-          <Row
-            label="Trenes"
-            value={station.supported_trains.map((train) => train.name).join(", ")}
+    <aside className="grid shrink-0 grid-cols-1 border-t border-line md:grid-cols-3">
+      <div className="bg-panel px-5 py-5">
+        <p
+          className={cn(
+            "flex items-center gap-2 text-sm",
+            overview.status === "error" ? "text-fail" : "text-mute",
+          )}
+        >
+          <span
+            className={cn(
+              "size-2 rounded-full",
+              overview.status === "active" && "bg-energy",
+              overview.status === "connecting" && "bg-energy",
+              overview.status === "idle" && "bg-warn",
+              overview.status === "error" && "bg-fail",
+            )}
           />
-        </dl>
+          {STATUS_LABEL[overview.status]}
+        </p>
+        <p className="mt-2 font-extrabold text-5xl leading-none tracking-[-0.04em] tabular-nums">
+          {personCount}
+        </p>
+        <p className="mt-2 text-sm text-mute">
+          {personCount === 1 ? "persona observada" : "personas observadas"}
+          {observedAt ? ` · ${observedAt}` : ""}
+        </p>
       </div>
 
-      <div>
-        <h4 className="text-lg font-semibold">Plan de despacho</h4>
-        {lastDispatch ? (
-          <dl className="mt-4 divide-y divide-line">
-            <Row label="Modelo" value={lastDispatch.train_model.name} />
-            <Row label="Trenes" value={lastDispatch.trains_required} />
-            <Row label="Capacidad" value={lastDispatch.total_capacity} />
-            <Row label="Sobrante" value={lastDispatch.surplus_capacity} />
-            <Row label="Ciclo" value={formatCycleTime(lastDispatch.estimated_cycle_time_seconds)} />
-          </dl>
+      <div className="border-t border-line bg-canvas px-5 py-5 md:border-t-0 md:border-x">
+        {loading ? (
+          <p className="text-sm text-mute">Cargando estación…</p>
+        ) : error || !station ? (
+          <p className="text-sm text-fail">{error || "Error al cargar la estación"}</p>
         ) : (
-          <p className="mt-3 text-sm leading-relaxed text-mute">Sin plan de despacho disponible.</p>
+          <>
+            <h3 className="text-2xl font-extrabold tracking-[-0.04em]">{station.name}</h3>
+            <p className="mt-2 text-sm text-mute">{station.line}</p>
+            <p className="mt-3 text-sm text-mute">Viaje {station.travel_time_seconds}s</p>
+          </>
         )}
       </div>
-    </div>
+
+      <div className="bg-ink px-5 py-5 text-paper">
+        <h4 className="text-sm font-semibold text-paper/70">Plan de despacho</h4>
+        {lastDispatch ? (
+          <>
+            <p className="mt-2 text-xl font-extrabold leading-tight tracking-[-0.04em]">
+              {lastDispatch.train_model.name}
+            </p>
+            <p className="mt-2 text-sm text-paper/70">
+              {lastDispatch.trains_required}{" "}
+              {lastDispatch.trains_required === 1 ? "tren" : "trenes"} · ciclo{" "}
+              {formatCycleTime(lastDispatch.estimated_cycle_time_seconds)} · capacidad{" "}
+              {lastDispatch.total_capacity}
+            </p>
+          </>
+        ) : (
+          <p className="mt-3 text-sm leading-relaxed text-paper/70">
+            Sin plan de despacho disponible.
+          </p>
+        )}
+      </div>
+    </aside>
   );
 }

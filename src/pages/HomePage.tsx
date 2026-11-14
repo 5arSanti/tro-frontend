@@ -13,23 +13,29 @@ export function HomePage() {
   const statusLabel = health.isOnline ? "Sistema operativo" : "Sistema desconectado";
 
   return (
-    <div className="mx-auto flex w-full max-w-xl flex-col gap-6 px-8 py-12">
-      <div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-ink">Demanda y despacho</h1>
-        <p className="mt-3 text-base leading-relaxed text-mute">
-          {error ? "No se pudieron cargar las fuentes de video." : `${cameraLabel}. ${statusLabel}.`}
-        </p>
-      </div>
-
-      {error ? (
-        <Button variant="outline" onClick={() => void refetch()}>
-          Reintentar
-        </Button>
-      ) : (
+    <div className="flex min-h-0 flex-1 flex-col bg-canvas">
+      <div className="mx-auto flex w-full max-w-xl flex-col gap-6 px-8 py-16">
         <div>
-          <Button onClick={() => navigate("/monitoring")}>Abrir monitoreo</Button>
+          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-ink">
+            Demanda y despacho
+          </h1>
+          <p className="mt-4 max-w-[40ch] text-base leading-relaxed text-mute">
+            {error ? "No se pudieron cargar las fuentes de video." : `${cameraLabel}. ${statusLabel}.`}
+          </p>
         </div>
-      )}
+
+        {error ? (
+          <div>
+            <Button variant="outline" onClick={() => void refetch()}>
+              Reintentar
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <Button onClick={() => navigate("/monitoring")}>Abrir monitoreo</Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

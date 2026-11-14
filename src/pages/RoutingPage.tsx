@@ -30,7 +30,7 @@ export function RoutingPage() {
     <div className="flex flex-col gap-8 p-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight">Optimización</h1>
+          <h1 className="text-3xl font-extrabold tracking-[-0.04em]">Optimización</h1>
           <p className="mt-1 text-sm text-mute">Oferta según demanda medida en estación.</p>
         </div>
         <Button variant="outline" onClick={() => void refetch()}>
@@ -44,10 +44,10 @@ export function RoutingPage() {
             key={tab.id}
             type="button"
             className={cn(
-              "rounded-md px-3 py-2 text-sm transition-colors duration-200",
+              "px-3 py-2 text-sm transition-colors duration-200",
               activeTab === tab.id
-                ? "bg-sidebar-primary font-medium text-sidebar-primary-foreground"
-                : "text-mute hover:bg-canvas hover:text-ink",
+                ? "bg-ink font-semibold text-paper"
+                : "text-mute hover:bg-canvas hover:text-activity-ink",
             )}
             onClick={() => setActiveTab(tab.id)}
           >

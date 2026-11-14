@@ -78,7 +78,7 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
             value={selectedStationId}
             onChange={(e) => setSelectedStationId(e.target.value)}
             disabled={loading}
-            className="rounded-md border border-line bg-panel px-3 py-2"
+            className="rounded-none border border-ink/15 bg-panel px-3 py-2"
           >
             <option value="">Seleccione una estación</option>
             {stations.map((station) => (
@@ -99,7 +99,7 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
             onChange={(e) => setPassengerCount(e.target.value)}
             placeholder="Ej: 150"
             disabled={loading}
-            className="rounded-md border border-line bg-panel px-3 py-2"
+            className="rounded-none border border-ink/15 bg-panel px-3 py-2"
           />
         </label>
 
