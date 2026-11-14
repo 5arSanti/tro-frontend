@@ -9,6 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-ink text-paper hover:bg-ink/85",
+        energy: "bg-energy text-deep hover:bg-energy/90",
         ghost: "text-ink hover:text-activity-ink hover:bg-canvas",
         outline: "border border-ink/15 bg-transparent text-ink hover:border-ink hover:bg-canvas",
       },

@@ -104,7 +104,7 @@ export function StationMonitoringPanel({
           />
           {STATUS_LABEL[overview.status]}
         </p>
-        <p className="mt-2 font-extrabold text-5xl leading-none tracking-[-0.04em] tabular-nums">
+        <p className="mt-2 font-extrabold text-5xl leading-none tracking-[-0.04em] text-deep tabular-nums">
           {personCount}
         </p>
         <p className="mt-2 text-sm text-mute">
@@ -127,8 +127,8 @@ export function StationMonitoringPanel({
         )}
       </div>
 
-      <div className="bg-ink px-5 py-5 text-paper">
-        <h4 className="text-sm font-semibold text-paper/70">Plan de despacho</h4>
+      <div className="bg-deep px-5 py-5 text-paper">
+        <h4 className="text-sm font-semibold text-energy">Plan de despacho</h4>
         {lastDispatch ? (
           <>
             <p className="mt-2 text-xl font-extrabold leading-tight tracking-[-0.04em]">

@@ -11,7 +11,7 @@ interface DispatchPanelProps {
 function Row({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="flex items-baseline justify-between gap-6 py-2">
-      <dt className="text-sm text-mute">{label}</dt>
+      <dt className="text-sm text-paper/70">{label}</dt>
       <dd className="text-sm tabular-nums">{value}</dd>
     </div>
   );
@@ -115,6 +115,7 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
 
         <div className="flex gap-2">
           <Button
+            variant="energy"
             onClick={() => void handleCalculate()}
             disabled={loading || !selectedStationId || !passengerCount}
           >
@@ -129,19 +130,21 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
       {error ? <p className="mt-4 text-sm text-fail">{error}</p> : null}
 
       {result ? (
-        <dl className="mt-6 divide-y divide-line">
-          <h4 className="pb-3 font-medium">Plan calculado</h4>
-          <Row label="Estación" value={result.station_name} />
-          <Row label="Pasajeros" value={result.passenger_count} />
-          <Row label="Modelo" value={result.train_model.name} />
-          <Row label="Trenes requeridos" value={result.trains_required} />
-          <Row label="Capacidad total" value={result.total_capacity} />
-          <Row label="Capacidad sobrante" value={result.surplus_capacity} />
-          <p className="pt-3 text-sm text-mute">
+        <div className="mt-6 bg-deep px-5 py-5 text-paper">
+          <h4 className="font-extrabold tracking-[-0.04em] text-energy">Plan calculado</h4>
+          <p className="mt-3 text-2xl font-extrabold tracking-[-0.04em]">{result.train_model.name}</p>
+          <dl className="mt-4 divide-y divide-white/15">
+            <Row label="Estación" value={result.station_name} />
+            <Row label="Pasajeros" value={result.passenger_count} />
+            <Row label="Trenes requeridos" value={result.trains_required} />
+            <Row label="Capacidad total" value={result.total_capacity} />
+            <Row label="Capacidad sobrante" value={result.surplus_capacity} />
+          </dl>
+          <p className="pt-3 text-sm text-paper/70">
             Tiempo estimado de ciclo: {Math.floor(result.estimated_cycle_time_seconds / 60)}m{" "}
             {result.estimated_cycle_time_seconds % 60}s
           </p>
-        </dl>
+        </div>
       ) : null}
     </div>
   );

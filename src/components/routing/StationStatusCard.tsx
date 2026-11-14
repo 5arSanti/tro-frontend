@@ -26,20 +26,20 @@ export function StationStatusCard({
   const hasData = status.last_passenger_count !== null && status.last_dispatch !== null;
 
   return (
-    <div className={`bg-canvas p-5 ${onClick ? "cursor-pointer" : ""}`} onClick={onClick}>
+    <div className={`bg-deep p-5 text-paper ${onClick ? "cursor-pointer" : ""}`} onClick={onClick}>
       <div className="flex items-baseline justify-between gap-3">
         <div>
-          <h3 className="font-semibold">{status.station.name}</h3>
-          <p className="text-sm text-mute">{status.station.line}</p>
+          <h3 className="font-extrabold tracking-[-0.04em]">{status.station.name}</h3>
+          <p className="text-sm text-paper/70">{status.station.line}</p>
         </div>
-        <span className="text-xs text-mute">{hasData ? "Con datos" : "Sin datos"}</span>
+        <span className="text-xs text-energy">{hasData ? "Con datos" : "Sin datos"}</span>
       </div>
 
       {hasData && status.last_dispatch ? (
         <div className="mt-4">
-          <p className="text-4xl font-extrabold tabular-nums tracking-[-0.04em]">
+          <p className="text-4xl font-extrabold tabular-nums tracking-[-0.04em] text-energy">
             {status.last_passenger_count}
-            <span className="ml-2 text-sm font-medium tracking-normal text-mute">
+            <span className="ml-2 text-sm font-medium tracking-normal text-paper/70">
               {status.last_passenger_count === 1 ? "persona" : "personas"}
             </span>
           </p>
@@ -48,10 +48,10 @@ export function StationStatusCard({
             {status.last_dispatch.trains_required === 1 ? "tren" : "trenes"} · ciclo{" "}
             {formatCycleTime(status.last_dispatch.estimated_cycle_time_seconds)}
           </p>
-          <p className="mt-1 text-xs text-mute">Actualizado {formatTime(status.last_updated)}</p>
+          <p className="mt-1 text-xs text-paper/60">Actualizado {formatTime(status.last_updated)}</p>
         </div>
       ) : (
-        <p className="mt-4 text-sm leading-relaxed text-mute">Sin datos de aforo disponibles.</p>
+        <p className="mt-4 text-sm leading-relaxed text-paper/70">Sin datos de aforo disponibles.</p>
       )}
     </div>
   );

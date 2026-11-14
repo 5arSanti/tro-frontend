@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { TornsLockup } from "@/components/brand/TornsLockup";
 import {
   Sidebar,
   SidebarContent,
@@ -12,9 +13,9 @@ export function AppSidebar() {
   return (
     <Sidebar variant="inset" collapsible="offcanvas">
       <SidebarHeader>
-        <Link to="/" className="flex flex-col gap-0.5 px-2 py-1 text-sidebar-foreground">
-          <span className="text-sm font-extrabold tracking-[-0.04em]">TORNS</span>
-          <span className="text-xs text-mute">Centro de control</span>
+        <Link to="/" className="flex flex-col gap-1 px-2 py-1 text-sidebar-foreground">
+          <TornsLockup />
+          <span className="text-xs text-sidebar-foreground/70">Centro de control</span>
         </Link>
       </SidebarHeader>
       <SidebarContent>

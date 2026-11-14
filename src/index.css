@@ -53,3 +53,10 @@ body {
   outline: 2px solid var(--energy);
   outline-offset: 3px;
 }
+
+@utility product-band {
+  background:
+    radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--energy) 18%, transparent), transparent 42%),
+    var(--deep);
+  color: var(--paper);
+}

@@ -14,9 +14,9 @@ export function SiteHeader() {
       <SidebarTrigger />
       <Separator orientation="vertical" />
       <nav className="text-sm text-mute">
-        <span>TORNS</span>
+        <span className="font-extrabold tracking-[-0.04em] text-ink">TORNS</span>
         <span className="px-1.5">/</span>
-        <span className="font-medium text-ink">{current?.title ?? ""}</span>
+        <span className="font-semibold text-ink">{current?.title ?? ""}</span>
       </nav>
     </header>
   );
