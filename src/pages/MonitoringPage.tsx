@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Camera } from "lucide-react";
 import { CameraRail } from "@/components/camera/CameraRail";
 import { DetectionPanel } from "@/components/detection/DetectionPanel";
 import { Header } from "@/components/layout/Header";
@@ -27,7 +28,6 @@ export function MonitoringPage() {
   const [selectedVideo, setSelectedVideo] = useState<VideoInfo | null>(null);
   const [overview, setOverview] = useState<DetectionOverview>(INITIAL_OVERVIEW);
   const [latestMetrics, setLatestMetrics] = useState<DetectionMetricsMessage | null>(null);
-  const [streamPlaying, setStreamPlaying] = useState(false);
 
   useEffect(() => {
     const cameraId = searchParams.get("camera");
@@ -42,7 +42,6 @@ export function MonitoringPage() {
     if (!selectedVideo) {
       setOverview(INITIAL_OVERVIEW);
       setLatestMetrics(null);
-      setStreamPlaying(false);
     }
   }, [selectedVideo]);
 
@@ -86,19 +85,15 @@ export function MonitoringPage() {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       {error ? (
-        <div className="flex items-center justify-between gap-3 border-b border-fail/40 bg-fail/10 px-3 py-2 text-sm">
-          <p>No se pudieron cargar las fuentes de video.</p>
+        <div className="flex items-center justify-between gap-3 border-b border-fail/20 bg-fail/5 px-5 py-3 text-sm">
+          <p>No se pudieron cargar las cámaras.</p>
           <Button variant="outline" onClick={() => void refetch()}>
             Reintentar
           </Button>
         </div>
       ) : null}
 
-      <Header
-        overview={overview}
-        totalCameras={videos.length}
-        activeCameras={selectedVideo ? 1 : 0}
-      />
+      <Header overview={overview} />
 
       <div className="flex min-h-0 flex-1">
         <CameraRail
@@ -109,26 +104,16 @@ export function MonitoringPage() {
         <div className="flex min-w-0 flex-1 flex-col">
           {selectedVideo ? (
             <>
-              <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2">
-                <h2 className="text-sm font-medium">{selectedVideo.name}</h2>
-                {streamPlaying ? (
-                  <span className="rounded-[2px] bg-fail px-2 py-0.5 text-[10px] font-semibold tracking-wide text-white">
-                    EN VIVO
-                  </span>
-                ) : null}
-                <div className="ml-auto">
-                  <DetectionPanel
-                    video={selectedVideo}
-                    onMetricsUpdate={handleMetricsUpdate}
-                    onConnectionChange={handleConnectionChange}
-                  />
-                </div>
+              <div className="flex items-center gap-3 border-b border-line px-5 py-3">
+                <h2 className="text-base font-semibold">{selectedVideo.name}</h2>
+                <DetectionPanel
+                  video={selectedVideo}
+                  onMetricsUpdate={handleMetricsUpdate}
+                  onConnectionChange={handleConnectionChange}
+                />
               </div>
-              <VideoDisplay selectedVideo={selectedVideo} onPlayingChange={setStreamPlaying} />
-              <div className="border-t border-white/10 p-4">
-                <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-mute">
-                  Estación y despacho
-                </h3>
+              <VideoDisplay selectedVideo={selectedVideo} />
+              <div className="border-t border-line p-5">
                 <StationMonitoringPanel
                   cameraId={selectedVideo.id}
                   latestMetrics={latestMetrics}
@@ -136,9 +121,14 @@ export function MonitoringPage() {
               </div>
             </>
           ) : (
-            <div className="flex flex-1 flex-col items-center justify-center gap-2 text-mute">
-              <p className="text-lg text-paper">Elija una cámara del listado</p>
-              {loading ? <p className="text-sm">Cargando fuentes…</p> : null}
+            <div className="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
+              <Camera className="size-8 text-mid" strokeWidth={1.5} />
+              <p className="text-lg font-semibold">Elija una cámara</p>
+              <p className="max-w-sm text-sm leading-relaxed text-mute">
+                {loading
+                  ? "Cargando fuentes…"
+                  : "La lista de la izquierda abre el video y el conteo de personas en estación."}
+              </p>
             </div>
           )}
         </div>

@@ -24,27 +24,30 @@ export function RoutingPage() {
     { id: "stations", label: "Estaciones" },
     { id: "calculator", label: "Calculadora" },
   ];
+  const stationsWithData = stationStatuses.filter((s) => s.last_passenger_count !== null).length;
 
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-8 p-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-extrabold tracking-tight">Optimización</h1>
-          <p className="text-sm text-mute">Oferta según demanda medida en estación</p>
+          <p className="mt-1 text-sm text-mute">Oferta según demanda medida en estación.</p>
         </div>
         <Button variant="outline" onClick={() => void refetch()}>
           Actualizar
         </Button>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
             className={cn(
-              "rounded-[2px] px-3 py-2 text-sm transition-colors duration-200",
-              activeTab === tab.id ? "bg-energy text-ink" : "text-mute hover:bg-white/10",
+              "rounded-md px-3 py-2 text-sm transition-colors duration-200",
+              activeTab === tab.id
+                ? "bg-sidebar-primary font-medium text-sidebar-primary-foreground"
+                : "text-mute hover:bg-canvas hover:text-ink",
             )}
             onClick={() => setActiveTab(tab.id)}
           >
@@ -54,32 +57,17 @@ export function RoutingPage() {
       </div>
 
       {activeTab === "overview" ? (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
+          <p className="text-sm leading-relaxed text-mute">
+            {trainModels.length} modelos de tren · {stations.length} estaciones configuradas ·{" "}
+            {stationsWithData} con datos.
+          </p>
           <section>
-            <h2 className="mb-3 text-lg font-semibold">Estado de estaciones</h2>
+            <h2 className="mb-4 text-lg font-semibold">Estado de estaciones</h2>
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {stationStatuses.map((status) => (
                 <StationStatusCard key={status.station.id} status={status} />
               ))}
-            </div>
-          </section>
-          <section>
-            <h2 className="mb-3 text-lg font-semibold">Resumen</h2>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
-                <p className="text-xs uppercase tracking-wide text-mute">Modelos de tren</p>
-                <p className="mt-2 font-mono text-3xl tabular-nums">{trainModels.length}</p>
-              </div>
-              <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
-                <p className="text-xs uppercase tracking-wide text-mute">Estaciones configuradas</p>
-                <p className="mt-2 font-mono text-3xl tabular-nums">{stations.length}</p>
-              </div>
-              <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
-                <p className="text-xs uppercase tracking-wide text-mute">Estaciones con datos</p>
-                <p className="mt-2 font-mono text-3xl tabular-nums">
-                  {stationStatuses.filter((s) => s.last_passenger_count !== null).length}
-                </p>
-              </div>
             </div>
           </section>
         </div>

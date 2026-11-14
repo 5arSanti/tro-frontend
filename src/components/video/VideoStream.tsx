@@ -29,24 +29,24 @@ export function VideoStream({ video, onPlayingChange }: VideoStreamProps) {
           }}
         />
       ) : (
-        <div className="flex h-full flex-col items-center justify-center gap-3 text-paper">
+        <div className="flex h-full flex-col items-center justify-center gap-3 text-white">
           <p>Error al cargar el stream de video</p>
           <button
             type="button"
-            className="rounded-[2px] border border-energy px-3 py-2 text-sm"
+            className="rounded-md border border-energy px-3 py-2 text-sm text-white"
             onClick={() => {
               setStreamError(false);
               onPlayingChange?.(true);
             }}
           >
-            Reintentar Conexión
+            Reintentar conexión
           </button>
         </div>
       )}
       {!streamError ? (
         <div className="absolute top-4 right-4">
-          <span className="rounded-[2px] bg-fail px-2 py-0.5 text-[10px] font-semibold tracking-wide text-white">
-            EN VIVO
+          <span className="rounded-md bg-fail px-2 py-0.5 text-[11px] font-semibold text-white">
+            En vivo
           </span>
         </div>
       ) : null}

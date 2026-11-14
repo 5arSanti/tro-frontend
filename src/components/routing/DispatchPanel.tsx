@@ -8,6 +8,15 @@ interface DispatchPanelProps {
   onDispatchCalculated?: (plan: DispatchPlan) => void;
 }
 
+function Row({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="flex items-baseline justify-between gap-6 py-2">
+      <dt className="text-sm text-mute">{label}</dt>
+      <dd className="text-sm tabular-nums">{value}</dd>
+    </div>
+  );
+}
+
 export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelProps) {
   const [selectedStationId, setSelectedStationId] = useState<string>("");
   const [passengerCount, setPassengerCount] = useState<string>("");
@@ -18,13 +27,13 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
 
   const handleCalculate = async () => {
     if (!selectedStationId || !passengerCount) {
-      setError("Por favor seleccione una estación e ingrese el número de pasajeros");
+      setError("Seleccione una estación e ingrese el número de pasajeros.");
       return;
     }
 
     const count = parseInt(passengerCount, 10);
     if (isNaN(count) || count < 0) {
-      setError("El número de pasajeros debe ser un valor válido");
+      setError("El número de pasajeros debe ser un valor válido.");
       return;
     }
 
@@ -55,21 +64,21 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
   };
 
   return (
-    <div className="max-w-xl rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+    <div className="max-w-xl">
       <h3 className="text-lg font-semibold">Calculadora de despacho</h3>
-      <p className="mt-1 text-sm text-mute">
+      <p className="mt-1 text-sm leading-relaxed text-mute">
         Elige el tren más pequeño que cubre N. Capacidades 5, 10 y 15. Regla ⌈N/C⌉.
       </p>
 
-      <div className="mt-4 flex flex-col gap-3">
-        <label className="flex flex-col gap-1 text-sm">
+      <div className="mt-6 flex flex-col gap-4">
+        <label className="flex flex-col gap-1.5 text-sm">
           Estación
           <select
             id="station-select"
             value={selectedStationId}
             onChange={(e) => setSelectedStationId(e.target.value)}
             disabled={loading}
-            className="rounded-[2px] border border-white/15 bg-canvas px-2 py-2"
+            className="rounded-md border border-line bg-panel px-3 py-2"
           >
             <option value="">Seleccione una estación</option>
             {stations.map((station) => (
@@ -80,7 +89,7 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
           </select>
         </label>
 
-        <label className="flex flex-col gap-1 text-sm">
+        <label className="flex flex-col gap-1.5 text-sm">
           Número de pasajeros
           <input
             id="passenger-input"
@@ -90,7 +99,7 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
             onChange={(e) => setPassengerCount(e.target.value)}
             placeholder="Ej: 150"
             disabled={loading}
-            className="rounded-[2px] border border-white/15 bg-canvas px-2 py-2"
+            className="rounded-md border border-line bg-panel px-3 py-2"
           />
         </label>
 
@@ -109,7 +118,7 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
             onClick={() => void handleCalculate()}
             disabled={loading || !selectedStationId || !passengerCount}
           >
-            {loading ? "Calculando..." : "Calcular plan"}
+            {loading ? "Calculando…" : "Calcular plan"}
           </Button>
           <Button variant="outline" onClick={handleReset} disabled={loading}>
             Limpiar
@@ -117,42 +126,22 @@ export function DispatchPanel({ stations, onDispatchCalculated }: DispatchPanelP
         </div>
       </div>
 
-      {error ? (
-        <p className="mt-4 text-sm text-fail">{error}</p>
-      ) : null}
+      {error ? <p className="mt-4 text-sm text-fail">{error}</p> : null}
 
       {result ? (
-        <div className="mt-4 grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-sm">
-          <h4 className="col-span-2 font-medium">Plan calculado</h4>
-          <div>
-            <p className="text-mute">Estación</p>
-            <p>{result.station_name}</p>
-          </div>
-          <div>
-            <p className="text-mute">Pasajeros</p>
-            <p className="font-mono tabular-nums text-energy">{result.passenger_count}</p>
-          </div>
-          <div>
-            <p className="text-mute">Modelo</p>
-            <p>{result.train_model.name}</p>
-          </div>
-          <div>
-            <p className="text-mute">Trenes requeridos</p>
-            <p className="font-mono tabular-nums">{result.trains_required}</p>
-          </div>
-          <div>
-            <p className="text-mute">Capacidad total</p>
-            <p className="font-mono tabular-nums">{result.total_capacity}</p>
-          </div>
-          <div>
-            <p className="text-mute">Capacidad sobrante</p>
-            <p className="font-mono tabular-nums">{result.surplus_capacity}</p>
-          </div>
-          <p className="col-span-2 text-xs text-mute">
+        <dl className="mt-6 divide-y divide-line">
+          <h4 className="pb-3 font-medium">Plan calculado</h4>
+          <Row label="Estación" value={result.station_name} />
+          <Row label="Pasajeros" value={result.passenger_count} />
+          <Row label="Modelo" value={result.train_model.name} />
+          <Row label="Trenes requeridos" value={result.trains_required} />
+          <Row label="Capacidad total" value={result.total_capacity} />
+          <Row label="Capacidad sobrante" value={result.surplus_capacity} />
+          <p className="pt-3 text-sm text-mute">
             Tiempo estimado de ciclo: {Math.floor(result.estimated_cycle_time_seconds / 60)}m{" "}
             {result.estimated_cycle_time_seconds % 60}s
           </p>
-        </div>
+        </dl>
       ) : null}
     </div>
   );

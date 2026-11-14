@@ -4,13 +4,13 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-[2px] text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default: "bg-energy text-ink hover:bg-energy/90",
-        ghost: "text-paper hover:bg-white/10",
-        outline: "border border-white/15 bg-transparent text-paper hover:bg-white/10",
+        ghost: "text-ink hover:bg-black/[0.04]",
+        outline: "border border-line bg-transparent text-ink hover:bg-black/[0.04]",
       },
       size: {
         default: "h-9 px-3",

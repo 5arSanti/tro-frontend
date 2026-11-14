@@ -3,21 +3,19 @@ import type { DetectionOverview } from "@/types/video.types";
 
 interface HeaderProps {
   overview: DetectionOverview;
-  totalCameras: number;
-  activeCameras: number;
 }
 
 const STATUS_LABEL: Record<DetectionOverview["status"], string> = {
   idle: "En espera",
   connecting: "Conectando",
-  active: "Activo",
+  active: "En vivo",
   error: "Error",
 };
 
-export function Header({ overview, totalCameras, activeCameras }: HeaderProps) {
+export function Header({ overview }: HeaderProps) {
   return (
-    <div className="flex flex-wrap items-center gap-6 border-b border-white/10 px-4 py-3">
-      <div className="flex items-center gap-2 text-sm">
+    <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 border-b border-line px-5 py-4">
+      <p className="flex items-center gap-2 text-sm text-mute">
         <span
           className={cn(
             "size-2 rounded-full",
@@ -27,26 +25,17 @@ export function Header({ overview, totalCameras, activeCameras }: HeaderProps) {
             overview.status === "error" && "bg-fail",
           )}
         />
-        <span>Estado {STATUS_LABEL[overview.status]}</span>
-      </div>
-      <div className="flex flex-col">
-        <span className="text-[11px] uppercase tracking-wide text-mute">Última actualización</span>
-        <span className="font-mono text-sm tabular-nums">{overview.lastUpdate ?? "--"}</span>
-      </div>
-      <div className="flex flex-col">
-        <span className="text-[11px] uppercase tracking-wide text-mute">Personas</span>
-        <span className="font-mono text-2xl tabular-nums text-energy">{overview.personCount}</span>
-      </div>
-      <div className="flex flex-col">
-        <span className="text-[11px] uppercase tracking-wide text-mute">Objetos</span>
-        <span className="font-mono text-2xl tabular-nums">{overview.totalObjects}</span>
-      </div>
-      <div className="flex flex-col">
-        <span className="text-[11px] uppercase tracking-wide text-mute">Fuentes</span>
-        <span className="font-mono text-sm tabular-nums">
-          {activeCameras}/{totalCameras}
+        {STATUS_LABEL[overview.status]}
+      </p>
+      <p className="text-2xl font-semibold tabular-nums tracking-tight">
+        {overview.personCount}
+        <span className="ml-1.5 text-sm font-medium text-mute">
+          {overview.personCount === 1 ? "persona" : "personas"}
         </span>
-      </div>
+      </p>
+      {overview.lastUpdate ? (
+        <p className="text-sm text-mute">Actualizado {overview.lastUpdate}</p>
+      ) : null}
     </div>
   );
 }

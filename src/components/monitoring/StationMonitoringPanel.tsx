@@ -24,6 +24,15 @@ function formatCycleTime(seconds: number): string {
   return `${minutes}m ${secs}s`;
 }
 
+function Row({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="flex items-baseline justify-between gap-6 py-2">
+      <dt className="shrink-0 text-sm text-mute">{label}</dt>
+      <dd className="text-right text-sm tabular-nums">{value}</dd>
+    </div>
+  );
+}
+
 export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonitoringPanelProps) {
   const [station, setStation] = useState<Station | null>(null);
   const [stationStatus, setStationStatus] = useState<StationStatus | null>(null);
@@ -66,7 +75,7 @@ export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonit
   }, [cameraId]);
 
   if (loading) {
-    return <p className="text-sm text-mute">Cargando información de la estación...</p>;
+    return <p className="text-sm text-mute">Cargando información de la estación…</p>;
   }
 
   if (error || !station) {
@@ -77,72 +86,36 @@ export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonit
   const lastDispatch = stationStatus?.last_dispatch;
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
-      <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
-        <h3 className="text-base font-semibold">{station.name}</h3>
-        <p className="mt-1 text-xs text-mute">
-          {station.line} · {station.id}
+    <div className="grid gap-8 lg:grid-cols-2">
+      <div>
+        <h3 className="text-lg font-semibold">{station.name}</h3>
+        <p className="mt-1 text-sm text-mute">
+          {station.line} · {currentPassengerCount} personas
+          {latestMetrics ? ` · ${formatTime(latestMetrics.timestamp)}` : ""}
         </p>
-        <p className="mt-4 text-xs uppercase tracking-wide text-mute">Detección actual</p>
-        <p className="mt-1 font-mono text-3xl tabular-nums text-energy">{currentPassengerCount}</p>
-        {latestMetrics ? (
-          <p className="text-xs text-mute">{formatTime(latestMetrics.timestamp)}</p>
-        ) : null}
-      </div>
-
-      <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
-        <h4 className="text-xs font-medium uppercase tracking-wide text-mute">Plan de despacho</h4>
-        {lastDispatch ? (
-          <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
-            <p className="col-span-2 font-medium">{lastDispatch.train_model.name}</p>
-            <div>
-              <p className="text-mute">Trenes</p>
-              <p className="font-mono tabular-nums">{lastDispatch.trains_required}</p>
-            </div>
-            <div>
-              <p className="text-mute">Capacidad</p>
-              <p className="font-mono tabular-nums">{lastDispatch.total_capacity}</p>
-            </div>
-            <div>
-              <p className="text-mute">Sobrante</p>
-              <p className="font-mono tabular-nums">{lastDispatch.surplus_capacity}</p>
-            </div>
-            <div>
-              <p className="text-mute">Ciclo</p>
-              <p className="font-mono tabular-nums">
-                {formatCycleTime(lastDispatch.estimated_cycle_time_seconds)}
-              </p>
-            </div>
-          </div>
-        ) : (
-          <p className="mt-3 text-sm text-mute">Sin plan de despacho disponible</p>
-        )}
-      </div>
-
-      <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
-        <h4 className="text-xs font-medium uppercase tracking-wide text-mute">Configuración</h4>
-        <dl className="mt-3 space-y-2 text-sm">
-          <div className="flex justify-between gap-4">
-            <dt className="text-mute">Cámara</dt>
-            <dd className="font-mono">{station.camera_id}</dd>
-          </div>
-          <div className="flex justify-between gap-4">
-            <dt className="text-mute">Tiempo de viaje</dt>
-            <dd className="font-mono">{station.travel_time_seconds}s</dd>
-          </div>
+        <dl className="mt-4 divide-y divide-line">
+          <Row label="Cámara" value={station.camera_id} />
+          <Row label="Tiempo de viaje" value={`${station.travel_time_seconds}s`} />
+          <Row
+            label="Trenes"
+            value={station.supported_trains.map((train) => train.name).join(", ")}
+          />
         </dl>
       </div>
 
-      <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
-        <h4 className="text-xs font-medium uppercase tracking-wide text-mute">Trenes disponibles</h4>
-        <ul className="mt-3 space-y-2 text-sm">
-          {station.supported_trains.map((train) => (
-            <li key={train.id} className="flex justify-between gap-3">
-              <span>{train.name}</span>
-              <span className="font-mono tabular-nums text-mute">{train.total_capacity}</span>
-            </li>
-          ))}
-        </ul>
+      <div>
+        <h4 className="text-lg font-semibold">Plan de despacho</h4>
+        {lastDispatch ? (
+          <dl className="mt-4 divide-y divide-line">
+            <Row label="Modelo" value={lastDispatch.train_model.name} />
+            <Row label="Trenes" value={lastDispatch.trains_required} />
+            <Row label="Capacidad" value={lastDispatch.total_capacity} />
+            <Row label="Sobrante" value={lastDispatch.surplus_capacity} />
+            <Row label="Ciclo" value={formatCycleTime(lastDispatch.estimated_cycle_time_seconds)} />
+          </dl>
+        ) : (
+          <p className="mt-3 text-sm leading-relaxed text-mute">Sin plan de despacho disponible.</p>
+        )}
       </div>
     </div>
   );

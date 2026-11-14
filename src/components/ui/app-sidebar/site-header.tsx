@@ -10,13 +10,13 @@ export function SiteHeader() {
   const visible = getNavigableRoutes(routeConfig);
   const current = visible.find((route) => isRouteActive(location.pathname, route, visible));
   return (
-    <header className="flex h-[var(--header-height)] shrink-0 items-center gap-2 border-b border-white/10 px-3">
+    <header className="flex h-[var(--header-height)] shrink-0 items-center gap-2 border-b border-line px-4">
       <SidebarTrigger />
       <Separator orientation="vertical" />
       <nav className="text-sm text-mute">
         <span>TORNS</span>
         <span className="px-1.5">/</span>
-        <span className="text-paper">{current?.title ?? ""}</span>
+        <span className="font-medium text-ink">{current?.title ?? ""}</span>
       </nav>
     </header>
   );

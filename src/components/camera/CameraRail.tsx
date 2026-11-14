@@ -11,12 +11,12 @@ export function CameraRail({
   onSelect: (video: VideoInfo) => void;
 }) {
   return (
-    <aside className="flex w-[220px] shrink-0 flex-col border-r border-white/10 bg-canvas/40">
-      <div className="flex items-center justify-between px-3 py-3 text-xs font-medium text-mute">
-        <span>Cámaras</span>
-        <span className="font-mono tabular-nums">{videos.length}</span>
+    <aside className="flex w-[240px] shrink-0 flex-col border-r border-line bg-canvas/60">
+      <div className="px-4 py-4">
+        <p className="text-sm font-medium">Cámaras</p>
+        <p className="mt-0.5 text-xs text-mute">{videos.length} fuentes</p>
       </div>
-      <div className="flex flex-col gap-1 overflow-auto p-2">
+      <div className="flex flex-col gap-0.5 overflow-auto px-2 pb-3">
         {videos.map((video) => {
           const selected = selectedId === video.id;
           return (
@@ -25,14 +25,12 @@ export function CameraRail({
               type="button"
               onClick={() => onSelect(video)}
               className={cn(
-                "rounded-[2px] px-2 py-2 text-left transition-colors duration-200",
-                selected ? "bg-energy text-ink" : "text-paper hover:bg-white/10",
+                "rounded-md px-3 py-2.5 text-left transition-colors duration-200",
+                selected ? "bg-sidebar-primary text-sidebar-primary-foreground" : "text-ink hover:bg-white",
               )}
             >
               <p className="truncate text-sm font-medium">{video.name}</p>
-              <p className={cn("truncate font-mono text-[11px]", selected ? "text-ink/70" : "text-mute")}>
-                {video.id}
-              </p>
+              <p className={cn("truncate text-xs", selected ? "text-deep/70" : "text-mute")}>{video.id}</p>
             </button>
           );
         })}

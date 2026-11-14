@@ -5,7 +5,6 @@ import type {
   VideoInfo,
 } from "../../types/video.types";
 import { WS_BASE_URL } from "../../utils/constants";
-import { DetectionStats } from "./DetectionStats";
 
 interface DetectionPanelProps {
   video: VideoInfo | null;
@@ -140,30 +139,12 @@ export function DetectionPanel({
     onConnectionChange?.(state);
   }
 
-  if (!video) {
-    return <p className="text-xs text-mute">Sin cámara</p>;
-  }
+  if (!video) return null;
 
   return (
-    <div className="flex items-center gap-3 text-xs">
-      <span className="text-mute">Detecciones</span>
-      <span
-        className={
-          connectionState === "error"
-            ? "text-fail"
-            : connectionState === "open"
-              ? "text-ok"
-              : "text-mute"
-        }
-      >
-        {connectionLabel(connectionState)}
-      </span>
-      <DetectionStats
-        personCount={latestMetrics?.personCount ?? latestMetrics?.person_count ?? 0}
-        totalObjects={latestMetrics?.totalObjects ?? latestMetrics?.total_objects ?? 0}
-        lastUpdate={latestMetrics?.timestamp ?? null}
-      />
-    </div>
+    <p className="sr-only" aria-live="polite">
+      {connectionLabel(connectionState)}
+    </p>
   );
 }
 

@@ -19,9 +19,9 @@ export function DetectionStats({
   lastUpdate,
 }: DetectionStatsProps) {
   return (
-    <div className="flex items-center gap-3 font-mono tabular-nums text-mute">
-      <span>{personCount} pers.</span>
-      <span>{totalObjects} obj.</span>
+    <div className="flex items-center gap-3 text-sm tabular-nums text-mute">
+      <span>{personCount} personas</span>
+      <span>{totalObjects} objetos</span>
       <span>{lastUpdate ? formatTime(lastUpdate) : "--:--:--"}</span>
     </div>
   );
