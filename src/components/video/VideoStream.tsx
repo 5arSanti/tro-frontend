@@ -1,50 +1,55 @@
 import { useEffect, useState } from "react";
-import type { VideoInfo } from "../../types/video.types";
-import { API_BASE_URL } from "../../utils/constants";
+import type { VideoInfo } from "@/types/video.types";
+import { API_BASE_URL } from "@/utils/constants";
 
 interface VideoStreamProps {
   video: VideoInfo;
+  onPlayingChange?: (playing: boolean) => void;
 }
 
-export function VideoStream({ video }: VideoStreamProps) {
+export function VideoStream({ video, onPlayingChange }: VideoStreamProps) {
   const streamUrl = `${API_BASE_URL}/videos/${video.id}/stream?confidence_threshold=0.5`;
   const [streamError, setStreamError] = useState(false);
 
   useEffect(() => {
     setStreamError(false);
-  }, [video.id]);
+    onPlayingChange?.(true);
+  }, [video.id, onPlayingChange]);
 
   return (
-    <div className="stream-container">
+    <div className="relative h-full w-full">
       {!streamError ? (
         <img
           src={streamUrl}
           alt={`Stream de ${video.name}`}
-          className="video-stream"
+          className="max-h-full w-full object-contain"
           onError={() => {
-            console.error(`Error loading stream for ${video.name}`);
             setStreamError(true);
+            onPlayingChange?.(false);
           }}
         />
       ) : (
-        <div className="stream-error">
-          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
+        <div className="flex h-full flex-col items-center justify-center gap-3 text-paper">
           <p>Error al cargar el stream de video</p>
-          <button className="retry-btn" onClick={() => setStreamError(false)}>
+          <button
+            type="button"
+            className="rounded-[2px] border border-energy px-3 py-2 text-sm"
+            onClick={() => {
+              setStreamError(false);
+              onPlayingChange?.(true);
+            }}
+          >
             Reintentar Conexión
           </button>
         </div>
       )}
-      <div className="stream-overlay">
-        <div className="overlay-badge">
-          <span className="live-indicator"></span>
-          EN VIVO
+      {!streamError ? (
+        <div className="absolute top-4 right-4">
+          <span className="rounded-[2px] bg-fail px-2 py-0.5 text-[10px] font-semibold tracking-wide text-white">
+            EN VIVO
+          </span>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }

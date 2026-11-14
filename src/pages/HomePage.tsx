@@ -1,115 +1,53 @@
 import { useNavigate } from "react-router-dom";
-import type { VideoInfo } from "../types/video.types";
-import { useHealthCheck } from "../hooks/useHealthCheck";
+import { Button } from "@/components/ui/button";
+import { useVideos } from "@/context/VideosProvider";
+import { useHealthCheck } from "@/hooks/useHealthCheck";
+import { formatEnvironment } from "@/lib/environment";
 
-interface HomePageProps {
-  videos: VideoInfo[];
-}
-
-const ENVIRONMENT_LABELS: Record<string, string> = {
-  development: "Desarrollo",
-  production: "Producción",
-  staging: "Pruebas",
-  testing: "Testing",
-  local: "Local",
-  "---": "---",
-};
-
-export function HomePage({ videos }: HomePageProps) {
+export function HomePage() {
   const navigate = useNavigate();
-  const systemHealth = useHealthCheck();
-
-  const handleStartMonitoring = () => {
-    navigate("/monitoring");
-  };
-
-  const getEnvironmentLabel = (env: string): string => {
-    return ENVIRONMENT_LABELS[env.toLowerCase()] || env;
-  };
+  const { videos, error, loading, refetch } = useVideos();
+  const health = useHealthCheck();
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-content">
-        <div className="dashboard-hero">
-          <div className="hero-badge">TORNS</div>
-          <h1>Demanda y despacho</h1>
-          <p className="hero-subtitle">
-            Plataforma de Control de Rutas con Detección Inteligente en Tiempo Real
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 p-6">
+      <div>
+        <h1 className="text-3xl font-extrabold tracking-tight">Demanda y despacho</h1>
+      </div>
+
+      {error ? (
+        <div className="flex items-center justify-between gap-3 rounded-[2px] border border-fail/40 bg-fail/10 px-3 py-2 text-sm">
+          <p>No se pudieron cargar las fuentes de video.</p>
+          <Button variant="outline" onClick={() => void refetch()}>
+            Reintentar
+          </Button>
+        </div>
+      ) : null}
+
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+          <p className="text-xs uppercase tracking-wide text-mute">Cámaras listadas</p>
+          <p className="mt-2 font-mono text-3xl tabular-nums">{loading ? "—" : videos.length}</p>
+        </div>
+        <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+          <p className="text-xs uppercase tracking-wide text-mute">Versión</p>
+          <p className="mt-2 font-mono text-3xl tabular-nums">{health.version}</p>
+        </div>
+        <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+          <p className="text-xs uppercase tracking-wide text-mute">Entorno</p>
+          <p className="mt-2 text-2xl font-semibold">{formatEnvironment(health.environment)}</p>
+        </div>
+        <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+          <p className="text-xs uppercase tracking-wide text-mute">Estado</p>
+          <p className="mt-2 text-2xl font-semibold">
+            {health.isOnline ? "Operativo" : "Desconectado"}
           </p>
         </div>
+      </div>
 
-        <div className="dashboard-stats">
-          <div className="dashboard-card">
-            <div className="card-label">Cámaras Disponibles</div>
-            <div className="card-value">{videos.length}</div>
-          </div>
-
-          <div className="dashboard-card">
-            <div className="card-label">Versión del Sistema</div>
-            <div className="card-value">{systemHealth.version}</div>
-          </div>
-
-          <div className="dashboard-card">
-            <div className="card-label">Entorno</div>
-            <div className="card-value">{getEnvironmentLabel(systemHealth.environment)}</div>
-          </div>
-
-          <div className="dashboard-card">
-            <div className="card-label">Estado del Sistema</div>
-            <div className="card-value card-status">
-              <span className={`status-indicator-dot ${systemHealth.isOnline ? 'online' : 'offline'}`}></span>
-              {systemHealth.isOnline ? "Operativo" : "Desconectado"}
-            </div>
-          </div>
-        </div>
-
-        <div className="dashboard-actions">
-          <button className="btn-primary" onClick={handleStartMonitoring}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M23 7l-7 5 7 5V7z"/>
-              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
-            </svg>
-            Iniciar Monitoreo en Vivo
-          </button>
-        </div>
-
-        <div className="dashboard-info">
-          <div className="info-section">
-            <h3>Características del Sistema</h3>
-            <div className="features-grid">
-              <div className="feature-item">
-                <div className="feature-header">
-                  <div className="feature-icon">AI</div>
-                  <h4>Detección Inteligente</h4>
-                </div>
-                <p>Identificación automática de objetos y personas mediante algoritmos avanzados de inteligencia artificial</p>
-              </div>
-              <div className="feature-item">
-                <div className="feature-header">
-                  <div className="feature-icon">RT</div>
-                  <h4>Tiempo Real</h4>
-                </div>
-                <p>Monitoreo simultáneo de múltiples cámaras con latencia mínima y actualización continua</p>
-              </div>
-              <div className="feature-item">
-                <div className="feature-header">
-                  <div className="feature-icon">AN</div>
-                  <h4>Análisis de Flujo</h4>
-                </div>
-                <p>Evaluación de patrones de desplazamiento y detección de aglomeraciones en zonas críticas</p>
-              </div>
-              <div className="feature-item">
-                <div className="feature-header">
-                  <div className="feature-icon">SE</div>
-                  <h4>Sistema Seguro</h4>
-                </div>
-                <p>Infraestructura protegida con encriptación de datos y acceso controlado</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div>
+        <Button onClick={() => navigate("/monitoring")}>Ir a monitoreo</Button>
       </div>
     </div>
   );
 }
-

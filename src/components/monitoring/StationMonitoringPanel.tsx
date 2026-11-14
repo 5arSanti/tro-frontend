@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Station, StationStatus } from "../../types/routing.types";
-import type { DetectionMetricsMessage } from "../../types/video.types";
-import { routingService } from "../../services/routingService";
+import type { Station, StationStatus } from "@/types/routing.types";
+import type { DetectionMetricsMessage } from "@/types/video.types";
+import { routingService } from "@/services/routingService";
 
 interface StationMonitoringPanelProps {
   cameraId: string;
@@ -35,18 +35,13 @@ export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonit
       try {
         setLoading(true);
         setError(null);
-        
-        // Find station by camera ID
         const stationData = await routingService.getStationByCameraId(cameraId);
-        
         if (!stationData) {
           setError(`No hay estación configurada para la cámara ${cameraId}`);
           setLoading(false);
           return;
         }
-        
         const statusData = await routingService.getStationStatus(stationData.id);
-        
         setStation(stationData);
         setStationStatus(statusData);
       } catch (err) {
@@ -56,15 +51,12 @@ export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonit
       }
     };
 
-    fetchStationData();
+    void fetchStationData();
 
-    // Refresh status every 1 seconds
     const interval = setInterval(async () => {
       try {
         const statusData = await routingService.getStationStatusByCameraId(cameraId);
-        if (statusData) {
-          setStationStatus(statusData);
-        }
+        if (statusData) setStationStatus(statusData);
       } catch (err) {
         console.error("Error refreshing station status:", err);
       }
@@ -74,175 +66,84 @@ export function StationMonitoringPanel({ cameraId, latestMetrics }: StationMonit
   }, [cameraId]);
 
   if (loading) {
-    return (
-      <div className="station-monitoring-panel">
-        <div className="monitoring-loading">
-          <div className="loading-spinner"></div>
-          <span>Cargando información de la estación...</span>
-        </div>
-      </div>
-    );
+    return <p className="text-sm text-mute">Cargando información de la estación...</p>;
   }
 
   if (error || !station) {
-    return (
-      <div className="station-monitoring-panel">
-        <div className="monitoring-error">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-          <span>{error || "Error al cargar la estación"}</span>
-        </div>
-      </div>
-    );
+    return <p className="text-sm text-fail">{error || "Error al cargar la estación"}</p>;
   }
 
   const currentPassengerCount = latestMetrics?.personCount ?? latestMetrics?.person_count ?? 0;
   const lastDispatch = stationStatus?.last_dispatch;
 
   return (
-    <div className="station-monitoring-panel">
-      {/* Station Info Header */}
-      <div className="monitoring-station-header">
-        <div className="station-header-content">
-          <div className="station-icon-large">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-            </svg>
-          </div>
-          <div className="station-header-info">
-            <h3>{station.name}</h3>
-            <div className="station-header-meta">
-              <span className="station-line-tag">{station.line}</span>
-              <span className="station-id-tag">ID: {station.id}</span>
-            </div>
-          </div>
-        </div>
+    <div className="grid gap-4 lg:grid-cols-2">
+      <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+        <h3 className="text-base font-semibold">{station.name}</h3>
+        <p className="mt-1 text-xs text-mute">
+          {station.line} · {station.id}
+        </p>
+        <p className="mt-4 text-xs uppercase tracking-wide text-mute">Detección actual</p>
+        <p className="mt-1 font-mono text-3xl tabular-nums text-energy">{currentPassengerCount}</p>
+        {latestMetrics ? (
+          <p className="text-xs text-mute">{formatTime(latestMetrics.timestamp)}</p>
+        ) : null}
       </div>
 
-      {/* Current Detection Metrics */}
-      <div className="monitoring-section">
-        <h4 className="section-title">DETECCIÓN ACTUAL</h4>
-        <div className="detection-metrics-grid">
-          <div className="metric-card highlight">
-            <span className="metric-label">PASAJEROS DETECTADOS</span>
-            <span className="metric-value large">{currentPassengerCount}</span>
-            {latestMetrics && (
-              <span className="metric-time">
-                {formatTime(latestMetrics.timestamp)}
-              </span>
-            )}
+      <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+        <h4 className="text-xs font-medium uppercase tracking-wide text-mute">Plan de despacho</h4>
+        {lastDispatch ? (
+          <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
+            <p className="col-span-2 font-medium">{lastDispatch.train_model.name}</p>
+            <div>
+              <p className="text-mute">Trenes</p>
+              <p className="font-mono tabular-nums">{lastDispatch.trains_required}</p>
+            </div>
+            <div>
+              <p className="text-mute">Capacidad</p>
+              <p className="font-mono tabular-nums">{lastDispatch.total_capacity}</p>
+            </div>
+            <div>
+              <p className="text-mute">Sobrante</p>
+              <p className="font-mono tabular-nums">{lastDispatch.surplus_capacity}</p>
+            </div>
+            <div>
+              <p className="text-mute">Ciclo</p>
+              <p className="font-mono tabular-nums">
+                {formatCycleTime(lastDispatch.estimated_cycle_time_seconds)}
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className="mt-3 text-sm text-mute">Sin plan de despacho disponible</p>
+        )}
       </div>
 
-      {/* Dispatch Plan */}
-      {lastDispatch ? (
-        <div className="monitoring-section">
-          <h4 className="section-title">PLAN DE DESPACHO ÓPTIMO</h4>
-          <div className="dispatch-summary">
-            <div className="dispatch-train-info">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="8" width="18" height="12" rx="2"/>
-                <path d="M3 12h18"/>
-              </svg>
-              <div className="train-info-text">
-                <span className="train-name">{lastDispatch.train_model.name}</span>
-                <span className="train-specs">
-                  {lastDispatch.train_model.wagon_count} vagón{lastDispatch.train_model.wagon_count > 1 ? 'es' : ''} 
-                  • {lastDispatch.train_model.capacity_per_wagon} pasajeros/vagón
-                </span>
-              </div>
-            </div>
-
-            <div className="dispatch-metrics-grid">
-              <div className="dispatch-metric">
-                <span className="dispatch-metric-label">Trenes Requeridos</span>
-                <span className="dispatch-metric-value">{lastDispatch.trains_required}</span>
-              </div>
-              <div className="dispatch-metric">
-                <span className="dispatch-metric-label">Capacidad Total</span>
-                <span className="dispatch-metric-value">{lastDispatch.total_capacity}</span>
-              </div>
-              <div className="dispatch-metric">
-                <span className="dispatch-metric-label">Capacidad Sobrante</span>
-                <span className="dispatch-metric-value">{lastDispatch.surplus_capacity}</span>
-              </div>
-              <div className="dispatch-metric">
-                <span className="dispatch-metric-label">Tiempo Estimado</span>
-                <span className="dispatch-metric-value">
-                  {formatCycleTime(lastDispatch.estimated_cycle_time_seconds)}
-                </span>
-              </div>
-            </div>
-
-            <div className="dispatch-status">
-              <span className="status-badge success">{lastDispatch.status}</span>
-              <span className="status-timestamp">
-                Generado: {formatTime(lastDispatch.generated_at)}
-              </span>
-            </div>
+      <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+        <h4 className="text-xs font-medium uppercase tracking-wide text-mute">Configuración</h4>
+        <dl className="mt-3 space-y-2 text-sm">
+          <div className="flex justify-between gap-4">
+            <dt className="text-mute">Cámara</dt>
+            <dd className="font-mono">{station.camera_id}</dd>
           </div>
-        </div>
-      ) : (
-        <div className="monitoring-section">
-          <h4 className="section-title">PLAN DE DESPACHO</h4>
-          <div className="no-dispatch-data">
-            <p>Sin plan de despacho disponible</p>
-            <span>La estación aún no ha generado un plan basado en detecciones</span>
+          <div className="flex justify-between gap-4">
+            <dt className="text-mute">Tiempo de viaje</dt>
+            <dd className="font-mono">{station.travel_time_seconds}s</dd>
           </div>
-        </div>
-      )}
-
-      {/* Station Configuration */}
-      <div className="monitoring-section">
-        <h4 className="section-title">CONFIGURACIÓN DE ESTACIÓN</h4>
-        <div className="station-config">
-          <div className="config-row">
-            <span className="config-label">Cámara Asignada</span>
-            <span className="config-value">{station.camera_id}</span>
-          </div>
-          <div className="config-row">
-            <span className="config-label">Tiempo de Viaje</span>
-            <span className="config-value">{station.travel_time_seconds}s</span>
-          </div>
-        </div>
+        </dl>
       </div>
 
-      {/* Available Trains */}
-      <div className="monitoring-section">
-        <h4 className="section-title">TRENES DISPONIBLES</h4>
-        <div className="available-trains-list">
+      <div className="rounded-[2px] border border-white/10 bg-canvas/40 p-4">
+        <h4 className="text-xs font-medium uppercase tracking-wide text-mute">Trenes disponibles</h4>
+        <ul className="mt-3 space-y-2 text-sm">
           {station.supported_trains.map((train) => (
-            <div key={train.id} className="train-item">
-              <div className="train-item-header">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="8" width="18" height="12" rx="2"/>
-                  <path d="M3 12h18"/>
-                </svg>
-                <span className="train-item-name">{train.name}</span>
-              </div>
-              <div className="train-item-specs">
-                <span className="train-spec">
-                  <span className="spec-icon">{train.wagon_count}</span>
-                  Vagón{train.wagon_count > 1 ? 'es' : ''}
-                </span>
-                <span className="train-spec">
-                  <span className="spec-icon">{train.capacity_per_wagon}</span>
-                  Cap/Vagón
-                </span>
-                <span className="train-spec highlight">
-                  <span className="spec-icon">{train.total_capacity}</span>
-                  Total
-                </span>
-              </div>
-            </div>
+            <li key={train.id} className="flex justify-between gap-3">
+              <span>{train.name}</span>
+              <span className="font-mono tabular-nums text-mute">{train.total_capacity}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );
 }
-

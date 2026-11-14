@@ -1,11 +1,7 @@
 export function Loading() {
   return (
-    <div className="metro-container">
-      <div className="loading-screen">
-        <div className="loading-spinner"></div>
-        <p>Inicializando sistema de monitoreo...</p>
-      </div>
+    <div className="flex flex-1 items-center justify-center p-8 text-sm text-mute">
+      Cargando despacho…
     </div>
   );
 }
-

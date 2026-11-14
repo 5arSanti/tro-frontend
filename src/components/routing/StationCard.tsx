@@ -1,55 +1,37 @@
-import type { Station } from "../../types/routing.types";
+import type { Station } from "@/types/routing.types";
 
-interface StationCardProps {
+export function StationCard({
+  station,
+  onClick,
+  isSelected = false,
+}: {
   station: Station;
   onClick?: () => void;
   isSelected?: boolean;
-}
-
-export function StationCard({ station, onClick, isSelected = false }: StationCardProps) {
+}) {
   return (
-    <div 
-      className={`station-card ${isSelected ? 'selected' : ''} ${onClick ? 'clickable' : ''}`}
+    <div
+      className={`rounded-[2px] border border-white/10 bg-canvas/40 p-4 ${isSelected ? "border-energy" : ""} ${onClick ? "cursor-pointer" : ""}`}
       onClick={onClick}
     >
-      <div className="station-card-header">
-        <div className="station-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-          </svg>
+      <h3 className="font-semibold">{station.name}</h3>
+      <p className="mt-1 text-xs text-mute">{station.line}</p>
+      <dl className="mt-3 space-y-2 text-sm">
+        <div className="flex justify-between gap-4">
+          <dt className="text-mute">ID</dt>
+          <dd className="font-mono">{station.id}</dd>
         </div>
-        <div className="station-line-badge">{station.line}</div>
-      </div>
-      
-      <div className="station-card-body">
-        <h3>{station.name}</h3>
-        <div className="station-meta">
-          <div className="meta-row">
-            <span className="meta-label">ID Estación</span>
-            <span className="meta-value">{station.id}</span>
-          </div>
-          <div className="meta-row">
-            <span className="meta-label">Cámara</span>
-            <span className="meta-value">{station.camera_id}</span>
-          </div>
-          <div className="meta-row">
-            <span className="meta-label">Tiempo de Viaje</span>
-            <span className="meta-value">{station.travel_time_seconds}s</span>
-          </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-mute">Cámara</dt>
+          <dd className="font-mono">{station.camera_id}</dd>
         </div>
-        
-        <div className="station-trains">
-          <span className="trains-label">Trenes Disponibles:</span>
-          <div className="trains-badges">
-            {station.supported_trains.map((train) => (
-              <span key={train.id} className="train-badge">
-                {train.wagon_count}V
-              </span>
-            ))}
-          </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-mute">Tiempo de viaje</dt>
+          <dd className="font-mono">{station.travel_time_seconds}s</dd>
         </div>
-      </div>
+      </dl>
+      <p className="mt-3 text-xs text-mute">Trenes</p>
+      <p className="text-sm">{station.supported_trains.map((train) => train.name).join(", ")}</p>
     </div>
   );
 }
-

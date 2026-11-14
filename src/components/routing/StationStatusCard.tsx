@@ -1,9 +1,4 @@
-import type { StationStatus } from "../../types/routing.types";
-
-interface StationStatusCardProps {
-  status: StationStatus;
-  onClick?: () => void;
-}
+import type { StationStatus } from "@/types/routing.types";
 
 function formatTime(timestamp: string | null): string {
   if (!timestamp) return "--:--:--";
@@ -21,74 +16,54 @@ function formatCycleTime(seconds: number): string {
   return `${minutes}m ${secs}s`;
 }
 
-export function StationStatusCard({ status, onClick }: StationStatusCardProps) {
+export function StationStatusCard({
+  status,
+  onClick,
+}: {
+  status: StationStatus;
+  onClick?: () => void;
+}) {
   const hasData = status.last_passenger_count !== null && status.last_dispatch !== null;
-  
+
   return (
-    <div className={`station-status-card ${onClick ? 'clickable' : ''}`} onClick={onClick}>
-      <div className="status-card-header">
-        <div className="status-station-info">
-          <h3>{status.station.name}</h3>
-          <span className="status-line">{status.station.line}</span>
+    <div
+      className={`rounded-[2px] border border-white/10 bg-canvas/40 p-4 ${onClick ? "cursor-pointer" : ""}`}
+      onClick={onClick}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h3 className="font-semibold">{status.station.name}</h3>
+          <p className="text-xs text-mute">{status.station.line}</p>
         </div>
-        <div className={`status-indicator ${hasData ? 'active' : 'idle'}`}>
-          <span className="status-dot"></span>
-          {hasData ? 'Activo' : 'Sin datos'}
-        </div>
+        <span className="text-xs text-mute">{hasData ? "Con datos" : "Sin datos"}</span>
       </div>
 
-      <div className="status-card-body">
-        {hasData && status.last_dispatch ? (
-          <>
-            <div className="status-metrics">
-              <div className="status-metric highlight">
-                <span className="metric-label">PASAJEROS</span>
-                <span className="metric-value">{status.last_passenger_count}</span>
-              </div>
-              <div className="status-metric">
-                <span className="metric-label">TRENES REQUERIDOS</span>
-                <span className="metric-value">{status.last_dispatch.trains_required}</span>
-              </div>
-            </div>
-
-            <div className="status-dispatch-info">
-              <div className="dispatch-train">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="8" width="18" height="12" rx="2"/>
-                  <path d="M3 12h18"/>
-                </svg>
-                <span>{status.last_dispatch.train_model.name}</span>
-              </div>
-              
-              <div className="dispatch-details">
-                <div className="detail-item">
-                  <span className="detail-label">Capacidad Total</span>
-                  <span className="detail-value">{status.last_dispatch.total_capacity}</span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Capacidad Sobrante</span>
-                  <span className="detail-value">{status.last_dispatch.surplus_capacity}</span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Tiempo Estimado</span>
-                  <span className="detail-value">{formatCycleTime(status.last_dispatch.estimated_cycle_time_seconds)}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="status-footer">
-              <span className="status-message">{status.last_dispatch.status}</span>
-              <span className="status-time">Actualizado: {formatTime(status.last_updated)}</span>
-            </div>
-          </>
-        ) : (
-          <div className="status-empty">
-            <p>Sin datos de aforo disponibles</p>
-            <span>La estación aún no ha reportado detecciones</span>
+      {hasData && status.last_dispatch ? (
+        <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <p className="text-mute">Pasajeros</p>
+            <p className="font-mono text-xl tabular-nums text-energy">{status.last_passenger_count}</p>
           </div>
-        )}
-      </div>
+          <div>
+            <p className="text-mute">Trenes requeridos</p>
+            <p className="font-mono text-xl tabular-nums">{status.last_dispatch.trains_required}</p>
+          </div>
+          <p className="col-span-2">{status.last_dispatch.train_model.name}</p>
+          <div>
+            <p className="text-mute">Capacidad</p>
+            <p className="font-mono tabular-nums">{status.last_dispatch.total_capacity}</p>
+          </div>
+          <div>
+            <p className="text-mute">Ciclo</p>
+            <p className="font-mono tabular-nums">
+              {formatCycleTime(status.last_dispatch.estimated_cycle_time_seconds)}
+            </p>
+          </div>
+          <p className="col-span-2 text-xs text-mute">Actualizado: {formatTime(status.last_updated)}</p>
+        </div>
+      ) : (
+        <p className="mt-4 text-sm text-mute">Sin datos de aforo disponibles</p>
+      )}
     </div>
   );
 }
-

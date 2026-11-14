@@ -1,14 +1,26 @@
 :root {
-  --paper: #f3f4f2;
-  --graphite: #3a4250;
-  --ink: #141820;
-  --civic: #1b4d73;
-  --civic-strong: #3d8ec4;
-  --line: #c5c8ce;
-  --night: #0b1f3a;
-  --night-panel: #12263f;
+  --canvas: #070d14;
+  --panel: #0b1f3a;
+  --deep: #0b4f78;
+  --mid: #1480b8;
+  --energy: #00a8ff;
+  --ink: #07111a;
+  --paper: #f3f9fd;
+  --mute: #8aa0b5;
   --ok: #2f7d4a;
   --warn: #c4922a;
   --fail: #b33a32;
+  --video: #000000;
   --font-num: ui-monospace, "Fragment Mono", monospace;
+
+  --sidebar: #0b4f78;
+  --sidebar-foreground: #f3f9fd;
+  --sidebar-primary: #00a8ff;
+  --sidebar-primary-foreground: #07111a;
+  --sidebar-accent: color-mix(in srgb, #00a8ff 16%, #0b4f78);
+  --sidebar-accent-foreground: #f3f9fd;
+  --sidebar-border: color-mix(in srgb, #1480b8 45%, #0b4f78);
+  --sidebar-ring: #00a8ff;
+  --sidebar-width: 18rem;
+  --header-height: 3rem;
 }

@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { CameraRail } from "@/components/camera/CameraRail";
+import { DetectionPanel } from "@/components/detection/DetectionPanel";
+import { Header } from "@/components/layout/Header";
+import { StationMonitoringPanel } from "@/components/monitoring/StationMonitoringPanel";
+import { VideoDisplay } from "@/components/video/VideoDisplay";
+import { Button } from "@/components/ui/button";
+import { useVideos } from "@/context/VideosProvider";
 import type {
   DetectionConnectionState,
   DetectionMetricsMessage,
   DetectionOverview,
   VideoInfo,
-} from "../types/video.types";
-import { Header } from "../components/layout/Header";
-import { CameraPanel } from "../components/camera/CameraPanel";
-import { VideoDisplay } from "../components/video/VideoDisplay";
-import { DetectionPanel } from "../components/detection/DetectionPanel";
-import { StationMonitoringPanel } from "../components/monitoring/StationMonitoringPanel";
-import "../styles/monitoring.css";
-import "../styles/monitoring-layout.css";
-
-interface MonitoringPageProps {
-  videos: VideoInfo[];
-}
+} from "@/types/video.types";
 
 const INITIAL_OVERVIEW: DetectionOverview = {
   status: "idle",
@@ -24,16 +21,34 @@ const INITIAL_OVERVIEW: DetectionOverview = {
   totalObjects: 0,
 };
 
-export function MonitoringPage({ videos }: MonitoringPageProps) {
+export function MonitoringPage() {
+  const { videos, error, loading, refetch } = useVideos();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedVideo, setSelectedVideo] = useState<VideoInfo | null>(null);
   const [overview, setOverview] = useState<DetectionOverview>(INITIAL_OVERVIEW);
   const [latestMetrics, setLatestMetrics] = useState<DetectionMetricsMessage | null>(null);
+  const [streamPlaying, setStreamPlaying] = useState(false);
+
+  useEffect(() => {
+    const cameraId = searchParams.get("camera");
+    if (!cameraId) {
+      setSelectedVideo(null);
+      return;
+    }
+    setSelectedVideo(videos.find((video) => video.id === cameraId) ?? null);
+  }, [searchParams, videos]);
 
   useEffect(() => {
     if (!selectedVideo) {
       setOverview(INITIAL_OVERVIEW);
+      setLatestMetrics(null);
+      setStreamPlaying(false);
     }
   }, [selectedVideo]);
+
+  function selectVideo(video: VideoInfo) {
+    setSearchParams({ camera: video.id }, { replace: true });
+  }
 
   const handleMetricsUpdate = (metrics: DetectionMetricsMessage) => {
     setLatestMetrics(metrics);
@@ -51,31 +66,15 @@ export function MonitoringPage({ videos }: MonitoringPageProps) {
 
   const handleConnectionChange = (state: DetectionConnectionState) => {
     setOverview((previous) => {
-      if (!selectedVideo) {
-        return INITIAL_OVERVIEW;
-      }
-
+      if (!selectedVideo) return INITIAL_OVERVIEW;
       switch (state) {
         case "connecting":
-          return {
-            status: "connecting",
-            lastUpdate: null,
-            personCount: 0,
-            totalObjects: 0,
-          };
+          return { status: "connecting", lastUpdate: null, personCount: 0, totalObjects: 0 };
         case "open":
-          if (previous.status === "active") {
-            return previous;
-          }
-          return {
-            ...previous,
-            status: "connecting",
-          };
+          if (previous.status === "active") return previous;
+          return { ...previous, status: "connecting" };
         case "error":
-          return {
-            ...previous,
-            status: "error",
-          };
+          return { ...previous, status: "error" };
         case "closed":
         case "idle":
         default:
@@ -85,83 +84,65 @@ export function MonitoringPage({ videos }: MonitoringPageProps) {
   };
 
   return (
-    <div className="monitoring-view">
+    <div className="flex min-h-0 flex-1 flex-col">
+      {error ? (
+        <div className="flex items-center justify-between gap-3 border-b border-fail/40 bg-fail/10 px-3 py-2 text-sm">
+          <p>No se pudieron cargar las fuentes de video.</p>
+          <Button variant="outline" onClick={() => void refetch()}>
+            Reintentar
+          </Button>
+        </div>
+      ) : null}
+
       <Header
         overview={overview}
         totalCameras={videos.length}
         activeCameras={selectedVideo ? 1 : 0}
       />
 
-      <div className="monitoring-layout">
-        {/* Left Sidebar - Camera List */}
-        <aside className="cameras-sidebar">
-          <CameraPanel
-            videos={videos}
-            selectedVideo={selectedVideo}
-            onSelectVideo={setSelectedVideo}
-          />
-        </aside>
-
-        {/* Main Content Area */}
-        <main className="monitoring-main">
+      <div className="flex min-h-0 flex-1">
+        <CameraRail
+          videos={videos}
+          selectedId={selectedVideo?.id ?? null}
+          onSelect={selectVideo}
+        />
+        <div className="flex min-w-0 flex-1 flex-col">
           {selectedVideo ? (
-            <div className="monitoring-content-wrapper">
-              {/* Top Bar - Camera Info and Live Stats */}
-              <section className="monitoring-top-bar">
-                <div className="top-bar-content">
-                  <div className="camera-info">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
-                      <polyline points="17 2 12 7 7 2"/>
-                    </svg>
-                    <h3>{selectedVideo.name}</h3>
-                    <span className="live-badge">
-                      <span className="live-dot"></span>
-                      EN VIVO
-                    </span>
-                  </div>
-                  
-                  <div className="detection-quick-stats">
-                    <DetectionPanel
-                      video={selectedVideo}
-                      onMetricsUpdate={handleMetricsUpdate}
-                      onConnectionChange={handleConnectionChange}
-                    />
-                  </div>
-                </div>
-              </section>
-
-              {/* Middle Section - Video Display */}
-              <section className="video-main-section">
-                <VideoDisplay selectedVideo={selectedVideo} />
-              </section>
-
-              {/* Bottom Section - Station Information */}
-              <section className="station-info-section">
-                <div className="station-info-header">
-                  <h3>INFORMACIÓN DE LA ESTACIÓN Y OPTIMIZACIÓN</h3>
-                </div>
-                <div className="station-info-content">
-                  <StationMonitoringPanel 
-                    cameraId={selectedVideo.id}
-                    latestMetrics={latestMetrics}
+            <>
+              <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2">
+                <h2 className="text-sm font-medium">{selectedVideo.name}</h2>
+                {streamPlaying ? (
+                  <span className="rounded-[2px] bg-fail px-2 py-0.5 text-[10px] font-semibold tracking-wide text-white">
+                    EN VIVO
+                  </span>
+                ) : null}
+                <div className="ml-auto">
+                  <DetectionPanel
+                    video={selectedVideo}
+                    onMetricsUpdate={handleMetricsUpdate}
+                    onConnectionChange={handleConnectionChange}
                   />
                 </div>
-              </section>
-            </div>
+              </div>
+              <VideoDisplay selectedVideo={selectedVideo} onPlayingChange={setStreamPlaying} />
+              <div className="border-t border-white/10 p-4">
+                <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-mute">
+                  Estación y despacho
+                </h3>
+                <StationMonitoringPanel
+                  cameraId={selectedVideo.id}
+                  latestMetrics={latestMetrics}
+                />
+              </div>
+            </>
           ) : (
-            <div className="no-camera-selected-main">
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
-                <polyline points="17 2 12 7 7 2"/>
-              </svg>
-              <h3>Seleccione una Cámara</h3>
-              <p>Elija una cámara de la lista lateral para comenzar el monitoreo en tiempo real</p>
+            <div className="flex flex-1 flex-col items-center justify-center gap-2 text-mute">
+              <p className="text-lg text-paper">Elija una cámara del listado</p>
+              {loading ? <p className="text-sm">Cargando fuentes…</p> : null}
             </div>
           )}
-        </main>
+        </div>
       </div>
     </div>
   );
 }
-

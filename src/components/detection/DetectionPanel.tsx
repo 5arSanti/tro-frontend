@@ -141,28 +141,26 @@ export function DetectionPanel({
   }
 
   if (!video) {
-    return (
-      <div className="empty-detections">
-        <p>No hay cámara seleccionada</p>
-      </div>
-    );
+    return <p className="text-xs text-mute">Sin cámara</p>;
   }
 
   return (
-    <div className="detections-container">
-      <div className="detection-status-header">
-        <h3>DETECCIONES EN VIVO</h3>
-        <span className={`connection-indicator ${connectionState}`}>
-          {connectionLabel(connectionState)}
-        </span>
-      </div>
+    <div className="flex items-center gap-3 text-xs">
+      <span className="text-mute">Detecciones</span>
+      <span
+        className={
+          connectionState === "error"
+            ? "text-fail"
+            : connectionState === "open"
+              ? "text-ok"
+              : "text-mute"
+        }
+      >
+        {connectionLabel(connectionState)}
+      </span>
       <DetectionStats
-        personCount={
-          latestMetrics?.personCount ?? latestMetrics?.person_count ?? 0
-        }
-        totalObjects={
-          latestMetrics?.totalObjects ?? latestMetrics?.total_objects ?? 0
-        }
+        personCount={latestMetrics?.personCount ?? latestMetrics?.person_count ?? 0}
+        totalObjects={latestMetrics?.totalObjects ?? latestMetrics?.total_objects ?? 0}
         lastUpdate={latestMetrics?.timestamp ?? null}
       />
     </div>
@@ -174,7 +172,7 @@ function connectionLabel(state: DetectionConnectionState): string {
     case "connecting":
       return "Conectando";
     case "open":
-      return "En vivo";
+      return "Conectado";
     case "error":
       return "Error";
     case "closed":

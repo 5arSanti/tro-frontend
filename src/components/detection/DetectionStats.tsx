@@ -19,19 +19,10 @@ export function DetectionStats({
   lastUpdate,
 }: DetectionStatsProps) {
   return (
-    <div className="detection-stats">
-      <div className="stat-card highlight">
-        <span className="stat-label">PERSONAS</span>
-        <span className="stat-number">{personCount}</span>
-      </div>
-      <div className="stat-card">
-        <span className="stat-label">OBJETOS</span>
-        <span className="stat-number">{totalObjects}</span>
-      </div>
-      <div className="stat-card">
-        <span className="stat-label">ÚLTIMA ACTUALIZACIÓN</span>
-        <span className="stat-value">{lastUpdate ? formatTime(lastUpdate) : "--:--:--"}</span>
-      </div>
+    <div className="flex items-center gap-3 font-mono tabular-nums text-mute">
+      <span>{personCount} pers.</span>
+      <span>{totalObjects} obj.</span>
+      <span>{lastUpdate ? formatTime(lastUpdate) : "--:--:--"}</span>
     </div>
   );
 }

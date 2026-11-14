@@ -1,16 +1,13 @@
-interface ErrorDisplayProps {
-  error: string;
-}
+import { Button } from "@/components/ui/button";
 
-export function ErrorDisplay({ error }: ErrorDisplayProps) {
+export function ErrorDisplay({ error, onRetry }: { error: string; onRetry: () => void }) {
   return (
-    <div className="metro-container">
-      <div className="error-screen">
-        <div className="error-icon">⚠️</div>
-        <h2>Error del Sistema</h2>
-        <p>{error}</p>
-      </div>
+    <div className="m-6 rounded-[2px] border border-fail/40 bg-fail/10 p-4 text-sm">
+      <p className="font-medium">No se pudo cargar el despacho.</p>
+      <p className="mt-1 text-mute">{error}</p>
+      <Button className="mt-3" variant="outline" onClick={onRetry}>
+        Reintentar
+      </Button>
     </div>
   );
 }
-
